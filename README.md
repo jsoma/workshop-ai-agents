@@ -1,6 +1,6 @@
 # Agentic AI with Pydantic AI
 
-**DataHarvest 2026**
+**Dataharvest 2026**
 
 Jonathan Soma
 

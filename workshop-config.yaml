@@ -1,13 +1,14 @@
 title: "Agentic AI with Pydantic AI"
 description: "Hands-on notebooks for building agentic workflows, structured extraction, tool use, web research, tracing, and local orchestration with Pydantic AI."
 author: "Jonathan Soma"
-conference_label: "DataHarvest 2026"
+conference_label: "Dataharvest 2026"
 github_repo: "jsoma/workshop-ai-agents"
 github_branch: "main"
 output_dir: "docs"
 execution_environment: "project"
 slides: "Pydantic AI agents.pptx"
 default_install: []
+social_slide_page: 14
 
 sections:
   - title: "01. Pydantic AI basics"
