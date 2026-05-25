@@ -1,0 +1,16 @@
+{
+  "name": "Pydantic AI Workshop",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "onCreateCommand": "curl -LsSf https://astral.sh/uv/install.sh | sh && ~/.local/bin/uv sync --frozen && ~/.local/bin/uv run python -m ipykernel install --user --name pydantic-ai-workshop --display-name 'Pydantic AI Workshop'",
+  "remoteEnv": {
+    "PATH": "/home/vscode/.local/bin:${containerEnv:PATH}"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter"
+      ]
+    }
+  }
+}

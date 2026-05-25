@@ -1,0 +1,65 @@
+title: "Agentic AI with Pydantic AI"
+description: "Hands-on notebooks for building agentic workflows, structured extraction, tool use, web research, tracing, and local orchestration with Pydantic AI."
+author: "Jonathan Soma"
+conference_label: "DataHarvest 2026"
+github_repo: "jsoma/workshop-ai-agents"
+github_branch: "main"
+output_dir: "docs"
+execution_environment: "project"
+slides: "Pydantic AI agents.pptx"
+default_install: []
+
+sections:
+  - title: "01. Pydantic AI basics"
+    folder: "."
+    markdown: false
+    notebooks:
+      "01-Pydantic AI basics.ipynb":
+        title: "Pydantic AI basics"
+        description: "Use Pydantic AI for model calls, structured outputs, image inputs, web search, custom tools, instrumentation, and MCP toolsets."
+        order: 1
+        install:
+          - ipywidgets
+          - pandas
+          - pydantic-ai-slim[duckduckgo,mcp,openai,openrouter,web-fetch]
+          - python-dotenv
+          - braintrust
+          - requests
+          - tqdm
+        data_files:
+          - "data/car.jpg"
+          - "data/cars.png"
+          - "data/cars/*.jpg"
+
+  - title: "02. Pydantic AI agents in action"
+    folder: "."
+    markdown: false
+    notebooks:
+      "02-Pydantic AI agents in action.ipynb":
+        title: "Pydantic AI agents in action"
+        description: "Build a tip-triage agent that combines Tavily search, Perplexity search, structured output, and optional Braintrust tracing."
+        order: 1
+        install:
+          - ipywidgets
+          - pydantic-ai-slim[openrouter,tavily]
+          - python-dotenv
+          - braintrust
+          - perplexityai
+
+  - title: "03. Pydantic AI orchestration"
+    folder: "."
+    markdown: false
+    notebooks:
+      "03-Pydantic AI orchestration.ipynb":
+        title: "Pydantic AI orchestration"
+        description: "Chain extraction, public records lookup, assessment search, and applicant research into a reporting workflow."
+        order: 1
+        install:
+          - ipywidgets
+          - pydantic-ai-slim[openrouter,web-fetch]
+          - python-dotenv
+          - pymupdf
+          - requests
+        data_files:
+          - "20250715 BZA min.pdf"
+          - "TM_5.pdf"

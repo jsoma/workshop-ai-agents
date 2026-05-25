@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agentic AI with Pydantic AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/base.css">
+    
+<link rel="stylesheet" href="static/index.css">
+
+    <script>
+    // Set theme before paint to avoid FOUC
+    (function(){var s=localStorage.getItem('theme');var t=s||(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.className='theme-'+(t==='dark'?'noir':'broadsheet');})();
+    </script>
+</head>
+<body>
+
+<div class="theme-switcher">
+    <button class="active" onclick="setTheme('dark', this)">Dark</button>
+    <button onclick="setTheme('light', this)">Light</button>
+</div>
+
+<div class="page">
+    
+<header>
+    <div class="conference-label">DataHarvest 2026</div>
+    <h1 class="site-title">Agentic AI with Pydantic AI</h1>
+    <p class="site-author">Jonathan Soma</p>
+    <div class="site-description"><p>Hands-on notebooks for building agentic workflows, structured extraction, tool use, web research, tracing, and local orchestration with Pydantic AI.</p></div>
+    
+    <div class="site-actions">
+        
+        <a href="https://codespaces.new/jsoma/workshop-ai-agents?ref=main" class="site-action-btn site-action-codespaces site-action-highlight" target="_blank" rel="noopener">Open in Codespaces</a>
+        
+        <a href="./pydantic-ai-agents.pdf" class="site-action-btn site-action-slides">View slides</a>
+        
+        <a href="./pydantic-ai-agents.pptx" class="site-action-btn site-action-download" download>Download PPTX</a>
+        
+    </div>
+    
+    
+    <div id="slides-pydantic-ai-agents" class="slide-embed workshop-slide-embed">
+    <button class="slide-preview" type="button" onclick="loadSlides('slides-pydantic-ai-agents', './pydantic-ai-agents.pdf')">
+        
+        <img src="./pydantic-ai-agents-thumb.png" alt="Slide deck preview">
+        
+        <span class="slide-preview-label">View slides</span>
+    </button>
+    
+    <div class="slide-download">
+        <a href="./pydantic-ai-agents.pptx" download>Download PPTX</a>
+    </div>
+    
+    <div class="slide-container" style="display: none;">
+        <iframe title="Workshop slides" loading="lazy"></iframe>
+    </div>
+</div>
+    
+    
+</header>
+
+
+<hr class="section-divider">
+<h2 class="section-title">01. Pydantic AI basics</h2>
+
+
+
+<div class="notebook-card">
+    <div class="step-number">01</div>
+    <div class="card-content">
+        <h3 class="notebook-title"><a href="./01-pydantic-ai-basics/01-pydantic-ai-basics-ANSWERS.html">Pydantic AI basics</a></h3>
+        <p class="notebook-desc">Use Pydantic AI for model calls, structured outputs, image inputs, web search, custom tools, instrumentation, and MCP toolsets.</p>
+        
+        <div class="secondary-actions">
+            
+            <a href="./01-pydantic-ai-basics/01-pydantic-ai-basics-ANSWERS.ipynb" class="action-download" download>Download .ipynb</a>
+            
+        </div>
+        
+        
+    </div>
+    <div class="card-action">
+        
+        <details class="try-menu">
+            <summary class="primary-btn">Try it</summary>
+            <div class="try-options">
+                
+                <a href="https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/01-pydantic-ai-basics/01-pydantic-ai-basics-ANSWERS.ipynb" target="_blank" rel="noopener">Open in Colab</a>
+                
+                <a href="https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/01-pydantic-ai-basics/01-pydantic-ai-basics.ipynb" target="_blank" rel="noopener">Colab (code-along)</a>
+                
+                <a href="https://codespaces.new/jsoma/workshop-ai-agents?ref=main" target="_blank" rel="noopener">Codespaces</a>
+                
+            </div>
+        </details>
+        
+        <a href="./01-pydantic-ai-basics/01-pydantic-ai-basics-ANSWERS.html" class="read-btn">Read</a>
+    </div>
+</div>
+
+
+<hr class="section-divider">
+<h2 class="section-title">02. Pydantic AI agents in action</h2>
+
+
+
+<div class="notebook-card">
+    <div class="step-number">01</div>
+    <div class="card-content">
+        <h3 class="notebook-title"><a href="./02-pydantic-ai-agents-in-action/02-pydantic-ai-agents-in-action-ANSWERS.html">Pydantic AI agents in action</a></h3>
+        <p class="notebook-desc">Build a tip-triage agent that combines Tavily search, Perplexity search, structured output, and optional Braintrust tracing.</p>
+        
+        <div class="secondary-actions">
+            
+            <a href="./02-pydantic-ai-agents-in-action/02-pydantic-ai-agents-in-action-ANSWERS.ipynb" class="action-download" download>Download .ipynb</a>
+            
+        </div>
+        
+        
+    </div>
+    <div class="card-action">
+        
+        <details class="try-menu">
+            <summary class="primary-btn">Try it</summary>
+            <div class="try-options">
+                
+                <a href="https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/02-pydantic-ai-agents-in-action/02-pydantic-ai-agents-in-action-ANSWERS.ipynb" target="_blank" rel="noopener">Open in Colab</a>
+                
+                <a href="https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/02-pydantic-ai-agents-in-action/02-pydantic-ai-agents-in-action.ipynb" target="_blank" rel="noopener">Colab (code-along)</a>
+                
+                <a href="https://codespaces.new/jsoma/workshop-ai-agents?ref=main" target="_blank" rel="noopener">Codespaces</a>
+                
+            </div>
+        </details>
+        
+        <a href="./02-pydantic-ai-agents-in-action/02-pydantic-ai-agents-in-action-ANSWERS.html" class="read-btn">Read</a>
+    </div>
+</div>
+
+
+<hr class="section-divider">
+<h2 class="section-title">03. Pydantic AI orchestration</h2>
+
+
+
+<div class="notebook-card">
+    <div class="step-number">01</div>
+    <div class="card-content">
+        <h3 class="notebook-title"><a href="./03-pydantic-ai-orchestration/03-pydantic-ai-orchestration-ANSWERS.html">Pydantic AI orchestration</a></h3>
+        <p class="notebook-desc">Chain extraction, public records lookup, assessment search, and applicant research into a reporting workflow.</p>
+        
+        <div class="secondary-actions">
+            
+            <a href="./03-pydantic-ai-orchestration/03-pydantic-ai-orchestration-ANSWERS.ipynb" class="action-download" download>Download .ipynb</a>
+            
+        </div>
+        
+        
+    </div>
+    <div class="card-action">
+        
+        <details class="try-menu">
+            <summary class="primary-btn">Try it</summary>
+            <div class="try-options">
+                
+                <a href="https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/03-pydantic-ai-orchestration/03-pydantic-ai-orchestration-ANSWERS.ipynb" target="_blank" rel="noopener">Open in Colab</a>
+                
+                <a href="https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/03-pydantic-ai-orchestration/03-pydantic-ai-orchestration.ipynb" target="_blank" rel="noopener">Colab (code-along)</a>
+                
+                <a href="https://codespaces.new/jsoma/workshop-ai-agents?ref=main" target="_blank" rel="noopener">Codespaces</a>
+                
+            </div>
+        </details>
+        
+        <a href="./03-pydantic-ai-orchestration/03-pydantic-ai-orchestration-ANSWERS.html" class="read-btn">Read</a>
+    </div>
+</div>
+
+
+
+
+
+</div>
+
+<script>
+function setTheme(theme, btn) {
+    var darkNames = {'dark':1, 'noir':1};
+    var cls = darkNames[theme] ? 'noir' : 'broadsheet';
+    document.documentElement.className = 'theme-' + cls;
+    document.querySelectorAll('.theme-switcher button').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    localStorage.setItem('theme', darkNames[theme] ? 'dark' : 'light');
+}
+
+// Sync button active state (theme already set by head script)
+(function() {
+    var saved = localStorage.getItem('theme');
+    var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    var label = theme === 'dark' ? 'Dark' : 'Light';
+    document.querySelectorAll('.theme-switcher button').forEach(function(b) {
+        b.classList.toggle('active', b.textContent.trim() === label);
+    });
+})();
+
+window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+    if (!localStorage.getItem('theme')) {
+        var cls = e.matches ? 'broadsheet' : 'noir';
+        document.documentElement.className = 'theme-' + cls;
+        var label = e.matches ? 'Light' : 'Dark';
+        document.querySelectorAll('.theme-switcher button').forEach(function(b) {
+            b.classList.toggle('active', b.textContent.trim() === label);
+        });
+    }
+});
+
+function loadSlides(slideId, slideUrl) {
+    var root = document.getElementById(slideId);
+    if (!root) return;
+    var preview = root.querySelector('.slide-preview');
+    var container = root.querySelector('.slide-container');
+    var frame = container && container.querySelector('iframe, embed');
+    if (frame && !frame.getAttribute('src')) {
+        frame.setAttribute('src', slideUrl);
+    }
+    if (preview) preview.style.display = 'none';
+    if (container) container.style.display = 'block';
+}
+
+document.addEventListener('click', function(event) {
+    document.querySelectorAll('details.try-menu[open], details.nb-try-menu[open]').forEach(function(menu) {
+        if (!menu.contains(event.target)) {
+            menu.removeAttribute('open');
+        }
+    });
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        document.querySelectorAll('details.try-menu[open], details.nb-try-menu[open]').forEach(function(menu) {
+            menu.removeAttribute('open');
+        });
+    }
+});
+</script>
+
+<script>
+// Detect blocked newsletter iframes and show a fallback link
+(function() {
+    function replaceWithLink(iframe, src) {
+        var link = document.createElement('a');
+        link.href = src;
+        link.className = 'newsletter-fallback-btn';
+        link.innerHTML = 'Subscribe to the newsletter &rarr;';
+        iframe.replaceWith(link);
+        // Also hide the beehiiv script tag if present
+        var scripts = document.querySelectorAll('.newsletter-signup script');
+        scripts.forEach(function(s) { s.remove(); });
+    }
+    document.querySelectorAll('.newsletter-signup iframe').forEach(function(iframe) {
+        var src = iframe.src;
+        if (!src) return;
+        // Check iframe dimensions after it settles — blocked iframes
+        // typically render as 0-height or very small
+        var timer = setTimeout(function() {
+            var h = iframe.offsetHeight || iframe.getBoundingClientRect().height;
+            if (h < 20) {
+                replaceWithLink(iframe, src);
+            }
+        }, 3000);
+    });
+})();
+</script>
+</body>
+</html>

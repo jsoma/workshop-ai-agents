@@ -1,0 +1,125 @@
+/* ================================================================
+   DARK MODE (Noir)
+   ================================================================ */
+.theme-noir {
+    background: #111;
+    color: #aaa;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 19px;
+    line-height: 1.65;
+}
+.theme-noir h1, .theme-noir h2, .theme-noir h3 {
+    font-family: 'Playfair Display', serif;
+    color: #e8e4dc;
+}
+.theme-noir h1 { font-size: 2.4em; font-weight: 700; margin: 1em 0 0.3em; }
+.theme-noir h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #e74c3c;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid #222;
+    padding-bottom: 0.3em;
+    margin: 2em 0 0.5em;
+}
+.theme-noir h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05em;
+    font-weight: 600;
+    color: #ccc;
+    margin: 1.5em 0 0.3em;
+}
+.theme-noir a { color: #c0392b; }
+.theme-noir a:hover { color: #e8e4dc; }
+.theme-noir code {
+    font-family: 'IBM Plex Mono', monospace;
+    background: #1a1a1a;
+    color: #c0392b;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.92em;
+}
+.theme-noir pre {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    padding: 1em;
+    overflow-x: auto;
+    border-radius: 4px;
+}
+.theme-noir pre code {
+    background: none;
+    color: #c9d1d9;
+    padding: 0;
+}
+.theme-noir blockquote {
+    border-left: 3px solid #333;
+    padding-left: 1em;
+    color: #777;
+}
+.theme-noir strong { color: #e8e4dc; }
+
+/* ================================================================
+   LIGHT MODE (Broadsheet)
+   ================================================================ */
+.theme-broadsheet {
+    background: #f0ece4;
+    color: #3a3530;
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+}
+.theme-broadsheet h1, .theme-broadsheet h2, .theme-broadsheet h3 {
+    color: #1a1a1a;
+}
+.theme-broadsheet h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2em;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin: 1em 0 0.3em;
+}
+.theme-broadsheet h2 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 2px solid #ccc5b8;
+    padding-bottom: 0.3em;
+    margin: 2em 0 0.5em;
+}
+.theme-broadsheet h3 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1.05em;
+    font-weight: 600;
+    margin: 1.5em 0 0.3em;
+}
+.theme-broadsheet a { color: #8b5e3c; }
+.theme-broadsheet a:hover { color: #c0392b; }
+.theme-broadsheet code {
+    font-family: 'IBM Plex Mono', monospace;
+    background: #e5e0d6;
+    color: #1a1a1a;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.92em;
+}
+.theme-broadsheet pre {
+    background: #faf7f2;
+    border: 1px solid #d8d2c8;
+    padding: 1em;
+    overflow-x: auto;
+}
+.theme-broadsheet pre code {
+    background: none;
+    color: #3a3530;
+    padding: 0;
+}
+.theme-broadsheet blockquote {
+    border-left: 3px solid #ccc5b8;
+    padding-left: 1em;
+    color: #666;
+}
+.theme-broadsheet strong { color: #1a1a1a; }

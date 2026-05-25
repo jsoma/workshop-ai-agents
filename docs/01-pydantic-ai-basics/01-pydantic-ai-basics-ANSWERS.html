@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pydantic AI basics</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/base.css">
+    
+<link rel="stylesheet" href="../static/read.css">
+
+    <script>
+    // Set theme before paint to avoid FOUC
+    (function(){var s=localStorage.getItem('theme');var t=s||(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.className='theme-'+(t==='dark'?'noir':'broadsheet');})();
+    </script>
+</head>
+<body>
+
+<div class="theme-switcher">
+    <button class="active" onclick="setTheme('dark', this)">Dark</button>
+    <button onclick="setTheme('light', this)">Light</button>
+</div>
+
+<div class="page">
+    
+
+<nav class="nb-topnav">
+    <a href="../index.html" class="nb-topnav-home">&larr; Home</a>
+    
+    <div class="nb-topnav-title">Agentic AI with Pydantic AI</div>
+    
+    <ol class="nb-topnav-list">
+        
+        <li class="is-current">
+            
+            <span class="nb-topnav-current">Pydantic AI basics</span>
+            
+        </li>
+        
+        <li>
+            
+            <a href="../02-pydantic-ai-agents-in-action/02-pydantic-ai-agents-in-action-ANSWERS.html">Pydantic AI agents in action</a>
+            
+        </li>
+        
+        <li>
+            
+            <a href="../03-pydantic-ai-orchestration/03-pydantic-ai-orchestration-ANSWERS.html">Pydantic AI orchestration</a>
+            
+        </li>
+        
+    </ol>
+</nav>
+
+
+
+<div class="nb-actions">
+    
+    <details class="nb-try-menu">
+        <summary class="nb-action-btn nb-action-colab">Try it</summary>
+        <div class="nb-try-options">
+            
+            <a href="https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/01-pydantic-ai-basics/01-pydantic-ai-basics-ANSWERS.ipynb" target="_blank" rel="noopener">Open in Colab</a>
+            
+            <a href="https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/01-pydantic-ai-basics/01-pydantic-ai-basics.ipynb" target="_blank" rel="noopener">Colab (code-along)</a>
+            
+            <a href="https://codespaces.new/jsoma/workshop-ai-agents?ref=main" target="_blank" rel="noopener">Codespaces</a>
+            
+        </div>
+    </details>
+    
+    
+    <a href="01-pydantic-ai-basics-ANSWERS.ipynb" class="nb-action-btn nb-action-download" download>Download notebook</a>
+    
+</div>
+
+
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=bf8bd8f5">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Install required packages</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="o">--</span><span class="n">quiet</span> <span class="n">ipywidgets</span> <span class="n">pandas</span> <span class="s1">'pydantic-ai-slim[duckduckgo,mcp,openai,openrouter,web-fetch]'</span> <span class="n">python</span><span class="o">-</span><span class="n">dotenv</span> <span class="n">braintrust</span> <span class="n">requests</span> <span class="n">tqdm</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>
+
+<span class="c1"># Download and extract data files</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">'https://github.com/jsoma/workshop-ai-agents/raw/main/docs/01-pydantic-ai-basics/01-pydantic-ai-basics-data.zip'</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Downloading data from </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s1">...'</span><span class="p">)</span>
+<span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s1">'01-pydantic-ai-basics-data.zip'</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Extracting 01-pydantic-ai-basics-data.zip...'</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s1">'01-pydantic-ai-basics-data.zip'</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
+    <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">'01-pydantic-ai-basics-data.zip'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'✓ Data files extracted!'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7e2a5490">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">getpass</span><span class="w"> </span><span class="kn">import</span> <span class="n">getpass</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">,</span> <span class="s2">"OpenRouter API key"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"OPENAI_API_KEY"</span><span class="p">,</span> <span class="s2">"OpenAI API key, for the OpenAI web search examples"</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">: "</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=6d6388ed"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Pydantic-AI-basics">Pydantic AI basics<a class="anchor-link" href="#Pydantic-AI-basics">¶</a></h1><p>Pydantic AI - not to be confused with Pydantic! - is a library for interfacing with AI. It's not married to any individual provider (OpenAI, Anthropic, Google), so it's often more flexible and independent than other tools. The people who make it have a track record of quality involvement with the open-source ecosystem so I also trust its continued existence a lot more than other flashy startups.</p>
+<p>We'll start by asking a <strong>nice simple question</strong> to an LLM.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8f45dd9f">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span><span class="s1">'openrouter:anthropic/claude-haiku-4-5'</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">'Where does "hello world" come from?'</span><span class="p">)</span>  
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre># Origins of "Hello World"
+
+The first known "Hello World" program appeared in **1974** in a C tutorial by **Brian Kernighan**. It was a simple program demonstrating how to print text.
+
+However, the phrase became widely popularized through **"The C Programming Language"** (1978), the famous textbook co-written by Kernighan and Dennis Ritchie. This book became the standard reference for C, and their "Hello World" example was adopted by countless programming tutorials that followed.
+
+## Why "Hello World"?
+
+There's no deep reason—it was simply a **convenient, recognizable phrase** for demonstrating output. The choice was somewhat arbitrary, though it's friendly and memorable. Some suggest it may have been influenced by an earlier computer science paper that used "hello, world" casually, but the exact inspiration isn't definitively documented.
+
+## Why it stuck
+
+Once it appeared in such an influential textbook, it became the **de facto first program** for learning any new language. The tradition persists today because:
+- It's simple enough for beginners
+- It's easy to verify the program works
+- It's become an informal standard and cultural touchstone in programming
+
+So while Kernighan didn't necessarily *invent* the idea, he popularized it at just the right moment in computing history.
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=69042a90"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Instead of talking directly to Anthropic or OpenAI, we're using OpenRouter instead. OpenRouter offers a zillion and one models, along with much better API key management than dealing directly with the providers themselves. If you wanted to talk directly to openai, you definitely can - just use <code>openai:gpt-5-nano</code> instead.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=1a90e8b9">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span><span class="s1">'openrouter:openai/gpt-5.4-nano'</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">'Where does "hello world" come from?'</span><span class="p">)</span>  
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>“Hello, world!” is a classic example used to teach basic programming concepts. It comes from programming culture rather than a single modern invention.
+
+- **Origin (historical):** The phrase traces back to **the early days of the C language**. It was popularized by **Brian Kernighan and Dennis Ritchie** in **the book _The C Programming Language_ (1978)**, which famously used the “Hello, world” program as the first example.
+- **Why it stuck:** It’s simple to type, easy to verify (“does it run?”), and demonstrates the basic idea of producing output without requiring much prior knowledge.
+- **Earlier roots:** Variants of “hello world”-style messages existed even before C (in other languages and tutorials), but **Kernighan &amp; Ritchie’s C book is what cemented it as the standard default example** for many languages.
+
+So, while “hello world” may have appeared in earlier contexts, its widely recognized origin is **the C book (1978)** that made it the go-to beginner example.
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2109c098">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="s1">'openrouter:openai/gpt-5.4-nano'</span><span class="p">,</span>
+    <span class="n">instructions</span><span class="o">=</span><span class="s2">"Be very, very terse in your responses."</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">'Where does "hello world" come from?'</span><span class="p">)</span>  
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>“Hello, world!” originated from **computer programming examples**—first popularized by **Brian Kernighan** in the early **1970s** (notably in *The C Programming Language*, 1978). It became a standard phrase to demonstrate that a language/toolchain is working.
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=d842463b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Structured-output">Structured output<a class="anchor-link" href="#Structured-output">¶</a></h1><p>One of the best use cases for AI is asking for <strong>structured data</strong> from something unstructured, like court cases. Maybe we have some text we extracted from a PDF of a lawsuit:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e0af40b1">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">lawsuit</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">Case No. 23STCV12345</span>
+<span class="s2">Let it be known that a LAWSUIT has been filed in the Superior Court of California,</span>
+<span class="s2">County of Los Angeles, on July 5 2028.</span>
+
+<span class="s2">Barnaby Rutherford vs. Tamper Media LLC</span>
+
+<span class="s2">on condition of fraud, breach of contract, and negligence.</span>
+
+<span class="s2">The plaintiff alleges that the defendant failed to deliver the</span>
+<span class="s2">agreed-upon services, resulting in financial losses and emotional distress.</span>
+<span class="s2">The lawsuit seeks compensation for damages incurred and any additional relief</span>
+<span class="s2">deemed appropriate by the court.</span>
+<span class="s2">"""</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=e26bd316"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A naive approach to extract from an LLM might look like the code below.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5bcb0ebf">
+<div class="input">
+<div class="prompt input_prompt">In [6]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">BinaryContent</span>
+
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">"openrouter:google/gemini-3.1-flash-lite"</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="s2">"""List the following about this lawsuit:</span>
+<span class="s2">- case number</span>
+<span class="s2">- court</span>
+<span class="s2">- state</span>
+<span class="s2">- filing date</span>
+<span class="s2">- plaintiff</span>
+<span class="s2">- defendant</span>
+<span class="s2">- claims</span>
+<span class="s2">"""</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span><span class="n">MODEL</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">prompt</span><span class="p">,</span> <span class="n">lawsuit</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Based on the information provided, here are the lawsuit details:
+
+*   **Case Number:** 23STCV12345
+*   **Court:** Superior Court of California, County of Los Angeles
+*   **State:** California
+*   **Filing Date:** July 5, 2028
+*   **Plaintiff:** Jonathan Soma
+*   **Defendant:** Tamper Media LLC
+*   **Claims:** Fraud, breach of contract, and negligence
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=41008291"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>That's easier to read, but not perfect, though. We want something nice and programmatic, JSON or dictionaries! This is where <strong>Pydantic</strong> comes in. You build a model around what you want your response to look like.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=53ba55e0">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
+
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">"openrouter:google/gemini-3.1-flash-lite"</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">LawsuitInfo</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">case_number</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">court</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">state</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">filing_date</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">plaintiff</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">defendant</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">claims</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span><span class="n">MODEL</span><span class="p">,</span>
+              <span class="n">instructions</span><span class="o">=</span><span class="s2">"Extract the lawsuit information"</span><span class="p">,</span>
+              <span class="n">output_type</span><span class="o">=</span><span class="n">LawsuitInfo</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">lawsuit</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>case_number='23STCV12345' court='Superior Court of California, County of Los Angeles' state='California' filing_date='July 5 2028' plaintiff='Jonathan Soma' defendant='Tamper Media LLC' claims=['fraud', 'breach of contract', 'negligence']
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=ed545440"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="...and-it-even-works-with-images!">...and it even works with images!<a class="anchor-link" href="#...and-it-even-works-with-images!">¶</a></h2><p>Take for example this car:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=0f31a24a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<img alt="No description has been provided for this image" src="data/car.jpg"/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=6c75dbcd"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Just like the lawsuit, we can feed it directly to an LLM and ask questions about it.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=631a9dc4">
+<div class="input">
+<div class="prompt input_prompt">In [8]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">BinaryContent</span>
+
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">"openrouter:google/gemini-3.1-flash-lite"</span>
+<span class="n">DATA</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">VehicleInfo</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">make</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">license_plate</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">estimated_year</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+
+<span class="n">image</span> <span class="o">=</span> <span class="n">BinaryContent</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">DATA</span> <span class="o">/</span> <span class="s2">"car.jpg"</span><span class="p">)</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">(),</span>
+    <span class="n">media_type</span><span class="o">=</span><span class="s2">"image/jpeg"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span><span class="n">MODEL</span><span class="p">,</span> 
+              <span class="n">instructions</span><span class="o">=</span><span class="s2">"Extract the appropriate vehicle information"</span><span class="p">,</span>
+              <span class="n">output_type</span><span class="o">=</span><span class="n">VehicleInfo</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">prompt</span><span class="p">,</span> <span class="n">image</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>make='Toyota' model='Highlander' type='SUV' color='beige' license_plate='2C-6784' estimated_year='2004-2007'
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=d9878162"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Working-with-a-lot-of-inputs">Working with a lot of inputs<a class="anchor-link" href="#Working-with-a-lot-of-inputs">¶</a></h1><p>Pydantic and structured outputs shine when you have a <em>lot</em> of data, like all of these car photos.</p>
+<img alt="No description has been provided for this image" src="data/cars.png"/>
+<p>You make the same setup as before.</p>
+<blockquote>
+<p>While we're at it I'm also going to get <em>very detailed</em> about what we're asking for. We could have done this before but I was trying to keep things simple!</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=89c98019">
+<div class="input">
+<div class="prompt input_prompt">In [9]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">BinaryContent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">"openrouter:google/gemini-3.1-flash-lite"</span>
+<span class="n">DATA</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Vehicle</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">make</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">"Vehicle manufacturer"</span><span class="p">)</span>
+    <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">"Vehicle model name"</span><span class="p">)</span>
+    <span class="n">color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">"Primary color"</span><span class="p">)</span>
+    <span class="n">year_estimate</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">"Estimated model year"</span><span class="p">)</span>
+    <span class="n">vehicle_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
+        <span class="s2">"sedan"</span><span class="p">,</span> <span class="s2">"SUV"</span><span class="p">,</span> <span class="s2">"truck"</span><span class="p">,</span> <span class="s2">"van"</span><span class="p">,</span> <span class="s2">"motorcycle"</span><span class="p">,</span> <span class="s2">"other"</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">"Type of vehicle"</span><span class="p">)</span>
+    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">"Confidence in identification, 0.0 to 1.0"</span><span class="p">)</span>
+    <span class="n">license_plate</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span><span class="n">MODEL</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="n">Vehicle</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=497372a5"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>...and then you just loop through it, collecting the outputs and pushing them into a dataframe.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a78fdc59">
+<div class="input">
+<div class="prompt input_prompt">In [10]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="n">PROMPT</span> <span class="o">=</span> <span class="s2">"Analyze the vehicle in this image. Fill in all fields."</span>
+
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">image_paths</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">((</span><span class="n">DATA</span> <span class="o">/</span> <span class="s2">"cars"</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.jpg"</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">image_path</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">image_paths</span><span class="p">):</span>
+    <span class="c1"># Get the result</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">BinaryContent</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">image_path</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">(),</span> <span class="n">media_type</span><span class="o">=</span><span class="s2">"image/jpeg"</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">PROMPT</span><span class="p">,</span> <span class="n">image</span><span class="p">])</span>
+
+    <span class="c1"># Save the result</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span>
+    <span class="n">row</span><span class="p">[</span><span class="s2">"filename"</span><span class="p">]</span> <span class="o">=</span> <span class="n">image_path</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Processed </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span><span class="si">}</span><span class="s2"> images."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>5it [00:13,  2.62s/it]</pre>
+</div>
+</div>
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Processed 5 images.
+</pre>
+</div>
+</div>
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=81a275b7">
+<div class="input">
+<div class="prompt input_prompt">In [11]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[11]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>make</th>
+<th>model</th>
+<th>color</th>
+<th>year_estimate</th>
+<th>vehicle_type</th>
+<th>confidence</th>
+<th>license_plate</th>
+<th>filename</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>Toyota</td>
+<td>Yaris</td>
+<td>yellow</td>
+<td>2018</td>
+<td>sedan</td>
+<td>1.0</td>
+<td>7กถ 4059</td>
+<td>28262480.jpg</td>
+</tr>
+<tr>
+<th>1</th>
+<td>Toyota</td>
+<td>Camry</td>
+<td>silver</td>
+<td>2014</td>
+<td>sedan</td>
+<td>1.0</td>
+<td>0050 60A</td>
+<td>28246768.jpg</td>
+</tr>
+<tr>
+<th>2</th>
+<td>Volkswagen</td>
+<td>Multivan (T6)</td>
+<td>black</td>
+<td>2018</td>
+<td>van</td>
+<td>1.0</td>
+<td>K02VV</td>
+<td>28246634.jpg</td>
+</tr>
+<tr>
+<th>3</th>
+<td>Tesla</td>
+<td>Model Y</td>
+<td>white</td>
+<td>2022</td>
+<td>SUV</td>
+<td>1.0</td>
+<td>沪A AB2295</td>
+<td>28266737.jpg</td>
+</tr>
+<tr>
+<th>4</th>
+<td>Lexus</td>
+<td>LX 570</td>
+<td>black</td>
+<td>2018</td>
+<td>SUV</td>
+<td>1.0</td>
+<td>ZJA 777</td>
+<td>28262472.jpg</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=5502e5a0"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Adding-tools">Adding tools<a class="anchor-link" href="#Adding-tools">¶</a></h1><p>Talking to an LLM one step at a time is <em>fine</em>, but that isn't what makes something <strong>agentic</strong>.</p>
+<p>Agentic work is about giving the LLM options and letting it work independently until it decides it has come to an answer.</p>
+<p>We'll start with <strong>WebSearch</strong>, which... searches the web.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=fb857e80">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai.capabilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebSearch</span><span class="p">,</span> <span class="n">WebFetch</span>
+
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s1">'openrouter:anthropic/claude-haiku-4-5'</span>
+
+<span class="c1"># Uses the web search built-in to the LLM provider</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="n">MODEL</span><span class="p">,</span>
+    <span class="n">capabilities</span><span class="o">=</span><span class="p">[</span><span class="n">WebSearch</span><span class="p">(</span><span class="n">local</span><span class="o">=</span><span class="kc">False</span><span class="p">)],</span>
+<span class="p">)</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">Research who Jonathan Soma is and provide a two-sentence summary</span>
+<span class="s2">of who he likely is.</span>
+<span class="s2">"""</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Based on the search results, Jonathan Soma is a data journalism educator and instructor at [Columbia Journalism School](https://journalism.columbia.edu/faculty/jonathan-soma), where he teaches courses like Data Journalism and Data Analysis Studio. He also runs a cat rescue and maintains an active presence in the tech community as a developer and educator, as evidenced by his [GitHub profile](https://github.com/jsoma) with 278 public repositories.
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=242f8944"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can provide all sorts of options to WebSearch, the most useful are probably site-specific search and location-specific search.</p>
+<blockquote>
+<p>We'll talk about this more, but WebSearch by default is a <strong>provider tool</strong>, not something you can infinitely customize and have control over. It runs on <em>OpenAI's servers</em> or <em>Anthropic's servers</em> (or whoever else's), and most of the customization is only available in this "native" format, not with the "local" (on your computer) approach.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5656413b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">WebSearchTool</span><span class="p">,</span> <span class="n">WebSearchUserLocation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai.capabilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">NativeTool</span>
+
+<span class="c1"># Different LLM providers have different options</span>
+<span class="c1"># allowed_domains= does not work with openrouter!</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="c1"># 'openrouter:anthropic/claude-haiku-4-5',</span>
+    <span class="s1">'openai-responses:gpt-5.4'</span><span class="p">,</span>
+    <span class="n">capabilities</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">NativeTool</span><span class="p">(</span>
+            <span class="n">WebSearchTool</span><span class="p">(</span>
+                <span class="n">search_context_size</span><span class="o">=</span><span class="s1">'medium'</span><span class="p">,</span>
+                <span class="n">user_location</span><span class="o">=</span><span class="n">WebSearchUserLocation</span><span class="p">(</span>
+                    <span class="n">city</span><span class="o">=</span><span class="s1">'New York'</span><span class="p">,</span>
+                    <span class="n">country</span><span class="o">=</span><span class="s1">'US'</span><span class="p">,</span>
+                    <span class="n">region</span><span class="o">=</span><span class="s1">'NY'</span>
+                <span class="p">),</span>
+                <span class="n">allowed_domains</span><span class="o">=</span><span class="p">[</span><span class="s1">'brooklynbrainery.com'</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">'Research who Jonathan Soma is and provide a two-sentence summary of who he likely is.'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Based on the search results, Jonathan Soma is a data journalism educator and instructor at [Columbia Journalism School](https://journalism.columbia.edu/faculty/jonathan-soma) who teaches courses on data journalism, data analysis, and storytelling with data. He also runs a cat rescue and maintains an active presence in the data journalism community, as evidenced by his work with organizations like the Lede Program and his [GitHub profile](https://github.com/jsoma) with numerous public repositories.
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=2a2c2ace"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Run-your-tools-locally">Run your tools locally<a class="anchor-link" href="#Run-your-tools-locally">¶</a></h1><p>Search: Perplexity, Exa, Tavily, DDG</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7691de1b">
+<div class="input">
+<div class="prompt input_prompt">In [16]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai.common_tools.duckduckgo</span><span class="w"> </span><span class="kn">import</span> <span class="n">duckduckgo_search_tool</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="s1">'openrouter:anthropic/claude-haiku-4-5'</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">duckduckgo_search_tool</span><span class="p">(</span><span class="n">max_results</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"""</span>
+<span class="s2">Research who Jonathan Soma is and provide a two-sentence summary of who he likely is and what he's teaching this semester.</span>
+<span class="s2">"""</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Based on my research, here's a two-sentence summary of Jonathan Soma:
+
+Jonathan Soma is the Knight Chair in Data Journalism at Columbia University's Journalism School, where he directs the Data Journalism MS program and the Lede Program summer intensive. This semester, he is likely teaching courses in data journalism, Python programming, data analysis, and data visualization—topics he specializes in making accessible to journalists and students.
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=c923ff63"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Custom-tools">Custom tools<a class="anchor-link" href="#Custom-tools">¶</a></h2><p>So far we've only seen tools that search the web. Maybe you have another source of information: an API, local documents, a Slack channel, etc etc etc.</p>
+<p>Custom tools allow you to enable the agent to do things it can't do out-of-the-box. Acquiring information is just one tiny slice of opportunity!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=d66d3a9a">
+<div class="input">
+<div class="prompt input_prompt">In [18]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># The docstring explains to the agent what the tool does</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_date</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Get the current date."""</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_jrn_schedule</span><span class="p">(</span><span class="n">semester</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"Fall"</span><span class="p">,</span> <span class="s2">"Spring"</span><span class="p">,</span> <span class="s2">"Summer"</span><span class="p">],</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Get Columbia Journalism School's schedule details for a given semester, and year."""</span>
+
+    <span class="c1"># https://doc.sis.columbia.edu/sel/JOUR_Spring2026_text.html</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"https://doc.sis.columbia.edu/sel/JOUR_</span><span class="si">{</span><span class="n">semester</span><span class="si">}{</span><span class="n">year</span><span class="si">}</span><span class="s2">_text.html"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"Schedule not found."</span>
+    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=287d2b90">
+<div class="input">
+<div class="prompt input_prompt">In [22]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="n">get_jrn_schedule</span><span class="p">(</span><span class="s2">"Fall"</span><span class="p">,</span> <span class="mi">2023</span><span class="p">)</span>
+<span class="n">text</span><span class="p">[:</span><span class="mi">2000</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[22]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>'&lt;!DOCTYPE html&gt;\n&lt;html&gt;&lt;head&gt;\n&lt;title&gt;Department Listing: Journalism Courses in the Fall 2023 Semester&lt;/title&gt;\n&lt;meta charset="utf-8"&gt;\n&lt;meta name="robots" content="noindex,nofollow"&gt;\n&lt;link rel="stylesheet" href="../doc_main.v02.css"&gt;\n&lt;/head&gt;\n&lt;body&gt;&lt;div id="text-header"&gt;\n&lt;h1&gt;Department Listing: Journalism Courses in the Fall 2023 Semester&lt;/h1&gt;&lt;/div&gt;\n&lt;pre&gt;\n     Number Sec  Call#      Pts  Title                           Day Time          Room Building        Faculty\n                 L App Activity  Subject\n\nREGI J0001  001  12878     1-12  REGISTERED FOR JOURNALISM                                              \n                       DUMMY CO  Registered                                                             \nRESI J0001  001  12879        0  1-RESIDENCE UNIT F-T JOUR                                              \n                       INDEPEND  Residence Unit                                                         \nRSRH J0001  001  12880        0  RESEARCH-JOURNALISM                                                    \n                       INDEPEND  Research                                                               \nJOUR J0004  001  15231        0  Journalism Now                  T 6:00pm-7:30pm   301 Journalism Buil  O\'Kelley, Winnie\n                       REGISTRA  Journalism                                                             \nJOUR J0005  001  15355        0  MASTER\'S THESIS WORKSHOP        F 10:00am-11:30a  201 Journalism Buil  Belkin, Lisa\n                       DUMMY CO  Journalism                                                             \nJOUR J0008  001  15697        0  LAB FEE REG                                                            \n                       DUMMY CO  Journalism                                                             \n                            Note: $50 lab fee for Photo I\nJOUR J0008  002  15698        0  VC Still Photo FALL                                                    \n                       DUMMY CO  Journali'</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=fe473d75"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's give it a try: this agent has a handful of tools. See what happens if you add or remove them!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=29ea6d87">
+<div class="input">
+<div class="prompt input_prompt">In [25]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai.common_tools.duckduckgo</span><span class="w"> </span><span class="kn">import</span> <span class="n">duckduckgo_search_tool</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="s1">'openrouter:anthropic/claude-haiku-4-5'</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">duckduckgo_search_tool</span><span class="p">(</span><span class="n">max_results</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+        <span class="c1"># get_date,</span>
+        <span class="n">get_jrn_schedule</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"""</span>
+<span class="s2">    Research who Jonathan Soma is and provide a two-sentence summary of who he is and what he's teaching this semester.</span>
+<span class="s2">"""</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Based on my research, here is a two-sentence summary of Jonathan Soma:
+
+Jonathan Soma is the Knight Chair in Data Journalism at Columbia Journalism School, where he directs both the Data Journalism Master's program and the summer intensive Lede Program, and is known for his work making unapproachable data accessible to journalists. This fall semester (Fall 2024), he is teaching "Foundations of Computing" (JOUR J4001) on Mondays and Wednesdays from 9:00 AM to 12:00 PM.
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=54a66925"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Seeing-what-tools-were-called,-and-with-what">Seeing what tools were called, and with what<a class="anchor-link" href="#Seeing-what-tools-were-called,-and-with-what">¶</a></h3><p>You <em>can</em> look under the hood to see what tools were called, but it isn't very attractive.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=74e646b9">
+<div class="input">
+<div class="prompt input_prompt">In [82]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToolCallPart</span>
+
+<span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">all_messages</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">ToolCallPart</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">## TOOL CALLED"</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"name:"</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">tool_name</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"args:"</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">args_as_dict</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+## TOOL CALLED
+name: duckduckgo_search
+args: {'query': 'Jonathan Soma'}
+
+## TOOL CALLED
+name: get_jrn_schedule
+args: {'semester': 'Fall', 'year': 2024}
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=1bbcc17b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To do this "properly" we're going to <strong>instrument our agent</strong>.</p>
+<h1 id="Adding-instrumentation">Adding instrumentation<a class="anchor-link" href="#Adding-instrumentation">¶</a></h1><p><strong>Observability</strong> is the ability to see what's going on inside of your agent. <strong>Instrumentation</strong> is the process of adding the tools to your agent that allow it to be observed.</p>
+<p>We're going to use <a href="https://www.braintrust.dev/">Braintrust</a>, but <a href="https://pydantic.dev/logfire">LogFire</a>, <a href="https://langfuse.com/">LangFuse</a>, <a href="https://arize.com/phoenix/">Arize Phoenix</a> are all other alternatives. The space is crowded!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b8334752">
+<div class="input">
+<div class="prompt input_prompt">In [27]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">braintrust.wrappers.pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup_pydantic_ai</span>
+
+<span class="n">setup_pydantic_ai</span><span class="p">(</span><span class="n">project_name</span><span class="o">=</span><span class="s2">"dataharvest-2026"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[27]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5e6f4310">
+<div class="input">
+<div class="prompt input_prompt">In [28]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai.common_tools.duckduckgo</span><span class="w"> </span><span class="kn">import</span> <span class="n">duckduckgo_search_tool</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="s1">'openrouter:anthropic/claude-haiku-4-5'</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">duckduckgo_search_tool</span><span class="p">(</span><span class="n">max_results</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+        <span class="n">get_date</span><span class="p">,</span>
+        <span class="n">get_jrn_schedule</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"""</span>
+<span class="s2">    Research who Jonathan Soma is and provide a two-sentence summary of who he is and what he taught last semester.</span>
+<span class="s2">"""</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Perfect! I found the information I needed. Based on my research, here's a two-sentence summary:
+
+**Jonathan Soma is the Knight Chair in Data Journalism at Columbia Journalism School, directing both the Data Journalism MS program and serving as an educator focused on making data accessible and approachable.** Last semester (Spring 2026), he taught "Data, Computation, Innovation," a lecture course in the journalism department.
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=0186ffdc"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now I can go see what happened in my <a href="https://www.braintrust.dev/">Braintrust logs</a>.</p>
+<p>As a point of comparison, try it with the following:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e39c4a7b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="s1">'openrouter:anthropic/claude-haiku-4-5'</span><span class="p">,</span>
+    <span class="n">capabilities</span><span class="o">=</span><span class="p">[</span><span class="n">WebSearch</span><span class="p">(),</span> <span class="n">WebFetch</span><span class="p">()]</span>
+<span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"""</span>
+<span class="s2">    Research who Jonathan Soma is and provide a two-sentence summary of who he is and what he taught last semester.</span>
+<span class="s2">"""</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/var/folders/25/h3prywj14qb0mlkl2s8bxq5m0000gn/T/ipykernel_92579/187993457.py:5: PydanticAIDeprecationWarning: WebSearch will stop auto-selecting DuckDuckGo based on package availability in v2. To keep this fallback, pass `local='duckduckgo'` (or `local=True`). To disable the fallback, pass `local=False`.
+  capabilities=[WebSearch()]
+</pre>
+</div>
+</div>
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre># Jonathan Soma
+
+[jonathansoma.com](https://jonathansoma.com/) indicates that Jonathan Soma is the Knight Chair of Data Journalism at Columbia University's Journalism School, where he runs a cat rescue, teaches data journalism, and creates educational resources about Python, AI, and data visualization. Based on the [Columbia University course catalog](https://peqod.com/prof/Jonathan_Soma), last semester (Fall 2025) he taught JOUR J4001, a data journalism course that met on Mondays and Wednesdays.
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=1f45d5cf"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Capabilities-and-customization">Capabilities and customization<a class="anchor-link" href="#Capabilities-and-customization">¶</a></h1><p>Pydantic can be confusing - tools, toolsets, capabilities, MCP servers... and it doesn't even stay stable! We accept Pydantic's faults, though, and move on.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=c63d467b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Capabilities">Capabilities<a class="anchor-link" href="#Capabilities">¶</a></h2><p>Pydantic has <em>some</em> built-in abilities, but they recently moved some of them into the <a href="https://github.com/pydantic/pydantic-ai-harness">Pydantic AI harness</a> and let random folks take over some of the implementations and it's just... a little messy at the moment. Take a breath.</p>
+<ul>
+<li>Capabilities: <a href="https://pydantic.dev/docs/ai/core-concepts/capabilities">https://pydantic.dev/docs/ai/core-concepts/capabilities</a></li>
+<li>Some common ones: <a href="https://github.com/vstorm-co/pydantic-ai-backend">https://github.com/vstorm-co/pydantic-ai-backend</a></li>
+</ul>
+<p>vstorm seems to have done a lot with Pydantic <em>but</em> that repo has under a hundred stars, so I don't feel great about it. This is why below we're using the official modelcontextprotocol filesystem MCP server instead of the Pydantic AI Backend one, even though the backend one claims to sandbox etc.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=9085d349"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="MCP-Servers">MCP Servers<a class="anchor-link" href="#MCP-Servers">¶</a></h2><p>MCP servers are your ability to talk to some other piece of software. Bridges or APIs, if you will.</p>
+<p>Below we use one for the <a href="https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem">filesystem</a> and one for <a href="https://github.com/GongRzhe/Office-PowerPoint-MCP-Server">Powerpoint</a>.</p>
+<blockquote>
+<p>Point of discussion: why an MCP Server for Powerpoint instead of a Powerpoint library that runs in Python?</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=698e9bda">
+<div class="input">
+<div class="prompt input_prompt">In [89]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai.mcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">MCPToolset</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=6b584695">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">file_server</span> <span class="o">=</span> <span class="n">MCPToolset</span><span class="p">({</span>
+    <span class="s2">"mcpServers"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"filesystem"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"command"</span><span class="p">:</span> <span class="s2">"npx"</span><span class="p">,</span>
+            <span class="s2">"args"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"-y"</span><span class="p">,</span>
+                <span class="s2">"@modelcontextprotocol/server-filesystem"</span><span class="p">,</span>
+                <span class="nb">str</span><span class="p">(</span><span class="s2">"."</span><span class="p">),</span>
+            <span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="n">ppt_server</span> <span class="o">=</span> <span class="n">MCPToolset</span><span class="p">({</span>
+  <span class="s2">"mcpServers"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"ppt"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"command"</span><span class="p">:</span> <span class="s2">"uvx"</span><span class="p">,</span>
+      <span class="s2">"args"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"--from"</span><span class="p">,</span> <span class="s2">"office-powerpoint-mcp-server"</span><span class="p">,</span> <span class="s2">"ppt_mcp_server"</span>
+      <span class="p">],</span>
+      <span class="s2">"env"</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="c1"># We'll start without toolsets</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="s1">'openrouter:anthropic/claude-haiku-4-5'</span><span class="p">,</span>
+    <span class="c1"># toolsets=[file_server, ppt_server],</span>
+<span class="p">)</span>
+
+<span class="n">instructions</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">You are a helpful assistant.</span>
+<span class="s2">"""</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">What files are in the current directory? Make a powerpoint presentation about how you did it.</span>
+<span class="s2">"""</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span>
+                        <span class="n">instructions</span><span class="o">=</span><span class="n">instructions</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Perfect! Here's what I found in the current directory:
+
+## Files in the Directory:
+
+**Files:**
+- `.DS_Store` - macOS system file
+- `Pydantic AI basics.ipynb` - Jupyter notebook for learning Pydantic AI
+- `public-records-story-candidates.md` - Markdown document
+- `talk.md` - Markdown document
+
+**Directories:**
+- `data/` - Directory for data files
+- `outputs/` - Directory for output files
+
+## How I Did It:
+
+I created a 5-slide PowerPoint presentation that documents the process:
+
+1. **Title Slide** - Introduction to the process
+2. **Step 1** - Explained how I used `list_allowed_directories()` to find the authorized directory path
+3. **Step 2** - Showed how I used `list_directory()` to scan the folder structure
+4. **Files Found** - Listed all 6 items (4 files, 2 directories) with descriptions
+5. **Summary** - Outlined the complete technical process
+
+The presentation has been saved as `Directory_Listing_Process.pptx` in your current directory!
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<nav class="nb-nav">
+    
+    <span></span>
+    
+    
+    <a href="../02-pydantic-ai-agents-in-action/02-pydantic-ai-agents-in-action-ANSWERS.html" class="nb-nav-next">Pydantic AI agents in action &rarr;</a>
+    
+</nav>
+
+
+
+
+</div>
+
+<script>
+function setTheme(theme, btn) {
+    var darkNames = {'dark':1, 'noir':1};
+    var cls = darkNames[theme] ? 'noir' : 'broadsheet';
+    document.documentElement.className = 'theme-' + cls;
+    document.querySelectorAll('.theme-switcher button').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    localStorage.setItem('theme', darkNames[theme] ? 'dark' : 'light');
+}
+
+// Sync button active state (theme already set by head script)
+(function() {
+    var saved = localStorage.getItem('theme');
+    var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    var label = theme === 'dark' ? 'Dark' : 'Light';
+    document.querySelectorAll('.theme-switcher button').forEach(function(b) {
+        b.classList.toggle('active', b.textContent.trim() === label);
+    });
+})();
+
+window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+    if (!localStorage.getItem('theme')) {
+        var cls = e.matches ? 'broadsheet' : 'noir';
+        document.documentElement.className = 'theme-' + cls;
+        var label = e.matches ? 'Light' : 'Dark';
+        document.querySelectorAll('.theme-switcher button').forEach(function(b) {
+            b.classList.toggle('active', b.textContent.trim() === label);
+        });
+    }
+});
+
+function loadSlides(slideId, slideUrl) {
+    var root = document.getElementById(slideId);
+    if (!root) return;
+    var preview = root.querySelector('.slide-preview');
+    var container = root.querySelector('.slide-container');
+    var frame = container && container.querySelector('iframe, embed');
+    if (frame && !frame.getAttribute('src')) {
+        frame.setAttribute('src', slideUrl);
+    }
+    if (preview) preview.style.display = 'none';
+    if (container) container.style.display = 'block';
+}
+
+document.addEventListener('click', function(event) {
+    document.querySelectorAll('details.try-menu[open], details.nb-try-menu[open]').forEach(function(menu) {
+        if (!menu.contains(event.target)) {
+            menu.removeAttribute('open');
+        }
+    });
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        document.querySelectorAll('details.try-menu[open], details.nb-try-menu[open]').forEach(function(menu) {
+            menu.removeAttribute('open');
+        });
+    }
+});
+</script>
+
+<script>
+// Detect blocked newsletter iframes and show a fallback link
+(function() {
+    function replaceWithLink(iframe, src) {
+        var link = document.createElement('a');
+        link.href = src;
+        link.className = 'newsletter-fallback-btn';
+        link.innerHTML = 'Subscribe to the newsletter &rarr;';
+        iframe.replaceWith(link);
+        // Also hide the beehiiv script tag if present
+        var scripts = document.querySelectorAll('.newsletter-signup script');
+        scripts.forEach(function(s) { s.remove(); });
+    }
+    document.querySelectorAll('.newsletter-signup iframe').forEach(function(iframe) {
+        var src = iframe.src;
+        if (!src) return;
+        // Check iframe dimensions after it settles — blocked iframes
+        // typically render as 0-height or very small
+        var timer = setTimeout(function() {
+            var h = iframe.offsetHeight || iframe.getBoundingClientRect().height;
+            if (h < 20) {
+                replaceWithLink(iframe, src);
+            }
+        }, 3000);
+    });
+})();
+</script>
+</body>
+</html>
