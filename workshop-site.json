@@ -2,7 +2,7 @@
   "schema_version": 1,
   "tool": "workshop-publisher",
   "tool_version": "0.1.0",
-  "built_at": "2026-05-27T12:00:17+02:00",
+  "built_at": "2026-05-27T16:46:43+02:00",
   "project_root": "/Users/soma/Library/CloudStorage/Dropbox/Soma/Curriculum/2026-dataharvest/pydantic-ai",
   "config_path": "workshop-config.yaml",
   "build_command": [
