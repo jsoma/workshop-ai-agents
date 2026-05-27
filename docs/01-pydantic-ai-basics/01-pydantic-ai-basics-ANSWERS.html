@@ -144,6 +144,7 @@
 <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="p">[</span>
     <span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">,</span> <span class="s2">"OpenRouter API key"</span><span class="p">),</span>
     <span class="p">(</span><span class="s2">"OPENAI_API_KEY"</span><span class="p">,</span> <span class="s2">"OpenAI API key, for the OpenAI web search examples"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"BRAINTRUST_API_KEY"</span><span class="p">,</span> <span class="s2">"Braintrust API key, for tracing examples"</span><span class="p">),</span>
 <span class="p">]:</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
         <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">: "</span><span class="p">)</span>
@@ -162,7 +163,7 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=8f45dd9f">
 <div class="input">
-<div class="prompt input_prompt">In [2]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
@@ -172,34 +173,6 @@
 <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">'Where does "hello world" come from?'</span><span class="p">)</span>  
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre># Origins of "Hello World"
-
-The first known "Hello World" program appeared in **1974** in a C tutorial by **Brian Kernighan**. It was a simple program demonstrating how to print text.
-
-However, the phrase became widely popularized through **"The C Programming Language"** (1978), the famous textbook co-written by Kernighan and Dennis Ritchie. This book became the standard reference for C, and their "Hello World" example was adopted by countless programming tutorials that followed.
-
-## Why "Hello World"?
-
-There's no deep reason—it was simply a **convenient, recognizable phrase** for demonstrating output. The choice was somewhat arbitrary, though it's friendly and memorable. Some suggest it may have been influenced by an earlier computer science paper that used "hello, world" casually, but the exact inspiration isn't definitively documented.
-
-## Why it stuck
-
-Once it appeared in such an influential textbook, it became the **de facto first program** for learning any new language. The tradition persists today because:
-- It's simple enough for beginners
-- It's easy to verify the program works
-- It's become an informal standard and cultural touchstone in programming
-
-So while Kernighan didn't necessarily *invent* the idea, he popularized it at just the right moment in computing history.
-</pre>
-</div>
 </div>
 </div>
 </div>
@@ -213,7 +186,7 @@ So while Kernighan didn't necessarily *invent* the idea, he popularized it at ju
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=1a90e8b9">
 <div class="input">
-<div class="prompt input_prompt">In [3]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
@@ -226,27 +199,10 @@ So while Kernighan didn't necessarily *invent* the idea, he popularized it at ju
 </div>
 </div>
 </div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>“Hello, world!” is a classic example used to teach basic programming concepts. It comes from programming culture rather than a single modern invention.
-
-- **Origin (historical):** The phrase traces back to **the early days of the C language**. It was popularized by **Brian Kernighan and Dennis Ritchie** in **the book _The C Programming Language_ (1978)**, which famously used the “Hello, world” program as the first example.
-- **Why it stuck:** It’s simple to type, easy to verify (“does it run?”), and demonstrates the basic idea of producing output without requiring much prior knowledge.
-- **Earlier roots:** Variants of “hello world”-style messages existed even before C (in other languages and tutorials), but **Kernighan &amp; Ritchie’s C book is what cemented it as the standard default example** for many languages.
-
-So, while “hello world” may have appeared in earlier contexts, its widely recognized origin is **the C book (1978)** that made it the go-to beginner example.
-</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=2109c098">
 <div class="input">
-<div class="prompt input_prompt">In [4]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
@@ -258,17 +214,6 @@ So, while “hello world” may have appeared in earlier contexts, its widely re
 <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">'Where does "hello world" come from?'</span><span class="p">)</span>  
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>“Hello, world!” originated from **computer programming examples**—first popularized by **Brian Kernighan** in the early **1970s** (notably in *The C Programming Language*, 1978). It became a standard phrase to demonstrate that a language/toolchain is working.
-</pre>
-</div>
 </div>
 </div>
 </div>
@@ -313,7 +258,7 @@ So, while “hello world” may have appeared in earlier contexts, its widely re
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=5bcb0ebf">
 <div class="input">
-<div class="prompt input_prompt">In [6]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -342,25 +287,6 @@ So, while “hello world” may have appeared in earlier contexts, its widely re
 </div>
 </div>
 </div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Based on the information provided, here are the lawsuit details:
-
-*   **Case Number:** 23STCV12345
-*   **Court:** Superior Court of California, County of Los Angeles
-*   **State:** California
-*   **Filing Date:** July 5, 2028
-*   **Plaintiff:** Jonathan Soma
-*   **Defendant:** Tamper Media LLC
-*   **Claims:** Fraud, breach of contract, and negligence
-</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=41008291"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -371,7 +297,7 @@ So, while “hello world” may have appeared in earlier contexts, its widely re
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=53ba55e0">
 <div class="input">
-<div class="prompt input_prompt">In [7]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -401,17 +327,6 @@ So, while “hello world” may have appeared in earlier contexts, its widely re
 </div>
 </div>
 </div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>case_number='23STCV12345' court='Superior Court of California, County of Los Angeles' state='California' filing_date='July 5 2028' plaintiff='Jonathan Soma' defendant='Tamper Media LLC' claims=['fraud', 'breach of contract', 'negligence']
-</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=ed545440"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -436,7 +351,7 @@ So, while “hello world” may have appeared in earlier contexts, its widely re
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=631a9dc4">
 <div class="input">
-<div class="prompt input_prompt">In [8]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -470,17 +385,6 @@ So, while “hello world” may have appeared in earlier contexts, its widely re
 </div>
 </div>
 </div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>make='Toyota' model='Highlander' type='SUV' color='beige' license_plate='2C-6784' estimated_year='2004-2007'
-</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=d9878162"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -496,7 +400,7 @@ So, while “hello world” may have appeared in earlier contexts, its widely re
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=89c98019">
 <div class="input">
-<div class="prompt input_prompt">In [9]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -535,7 +439,7 @@ So, while “hello world” may have appeared in earlier contexts, its widely re
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=a78fdc59">
 <div class="input">
-<div class="prompt input_prompt">In [10]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
@@ -559,133 +463,15 @@ So, while “hello world” may have appeared in earlier contexts, its widely re
 </div>
 </div>
 </div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>5it [00:13,  2.62s/it]</pre>
-</div>
-</div>
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Processed 5 images.
-</pre>
-</div>
-</div>
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>
-</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=81a275b7">
 <div class="input">
-<div class="prompt input_prompt">In [11]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
 <span class="n">df</span>
 </pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[11]:</div>
-<div class="output_html rendered_html output_subarea output_execute_result"><div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>make</th>
-<th>model</th>
-<th>color</th>
-<th>year_estimate</th>
-<th>vehicle_type</th>
-<th>confidence</th>
-<th>license_plate</th>
-<th>filename</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>0</th>
-<td>Toyota</td>
-<td>Yaris</td>
-<td>yellow</td>
-<td>2018</td>
-<td>sedan</td>
-<td>1.0</td>
-<td>7กถ 4059</td>
-<td>28262480.jpg</td>
-</tr>
-<tr>
-<th>1</th>
-<td>Toyota</td>
-<td>Camry</td>
-<td>silver</td>
-<td>2014</td>
-<td>sedan</td>
-<td>1.0</td>
-<td>0050 60A</td>
-<td>28246768.jpg</td>
-</tr>
-<tr>
-<th>2</th>
-<td>Volkswagen</td>
-<td>Multivan (T6)</td>
-<td>black</td>
-<td>2018</td>
-<td>van</td>
-<td>1.0</td>
-<td>K02VV</td>
-<td>28246634.jpg</td>
-</tr>
-<tr>
-<th>3</th>
-<td>Tesla</td>
-<td>Model Y</td>
-<td>white</td>
-<td>2022</td>
-<td>SUV</td>
-<td>1.0</td>
-<td>沪A AB2295</td>
-<td>28266737.jpg</td>
-</tr>
-<tr>
-<th>4</th>
-<td>Lexus</td>
-<td>LX 570</td>
-<td>black</td>
-<td>2018</td>
-<td>SUV</td>
-<td>1.0</td>
-<td>ZJA 777</td>
-<td>28262472.jpg</td>
-</tr>
-</tbody>
-</table>
-</div></div>
 </div>
 </div>
 </div>
@@ -723,17 +509,6 @@ So, while “hello world” may have appeared in earlier contexts, its widely re
 <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Based on the search results, Jonathan Soma is a data journalism educator and instructor at [Columbia Journalism School](https://journalism.columbia.edu/faculty/jonathan-soma), where he teaches courses like Data Journalism and Data Analysis Studio. He also runs a cat rescue and maintains an active presence in the tech community as a developer and educator, as evidenced by his [GitHub profile](https://github.com/jsoma) with 278 public repositories.
-</pre>
-</div>
 </div>
 </div>
 </div>
@@ -783,17 +558,6 @@ So, while “hello world” may have appeared in earlier contexts, its widely re
 </div>
 </div>
 </div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Based on the search results, Jonathan Soma is a data journalism educator and instructor at [Columbia Journalism School](https://journalism.columbia.edu/faculty/jonathan-soma) who teaches courses on data journalism, data analysis, and storytelling with data. He also runs a cat rescue and maintains an active presence in the data journalism community, as evidenced by his work with organizations like the Lede Program and his [GitHub profile](https://github.com/jsoma) with numerous public repositories.
-</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=2a2c2ace"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -804,7 +568,7 @@ So, while “hello world” may have appeared in earlier contexts, its widely re
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=7691de1b">
 <div class="input">
-<div class="prompt input_prompt">In [16]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
@@ -825,19 +589,6 @@ So, while “hello world” may have appeared in earlier contexts, its widely re
 </div>
 </div>
 </div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Based on my research, here's a two-sentence summary of Jonathan Soma:
-
-Jonathan Soma is the Knight Chair in Data Journalism at Columbia University's Journalism School, where he directs the Data Journalism MS program and the Lede Program summer intensive. This semester, he is likely teaching courses in data journalism, Python programming, data analysis, and data visualization—topics he specializes in making accessible to journalists and students.
-</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=c923ff63"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -849,7 +600,7 @@ Jonathan Soma is the Knight Chair in Data Journalism at Columbia University's Jo
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=d66d3a9a">
 <div class="input">
-<div class="prompt input_prompt">In [18]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
@@ -876,22 +627,12 @@ Jonathan Soma is the Knight Chair in Data Journalism at Columbia University's Jo
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=287d2b90">
 <div class="input">
-<div class="prompt input_prompt">In [22]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="n">get_jrn_schedule</span><span class="p">(</span><span class="s2">"Fall"</span><span class="p">,</span> <span class="mi">2023</span><span class="p">)</span>
 <span class="n">text</span><span class="p">[:</span><span class="mi">2000</span><span class="p">]</span>
 </pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[22]:</div>
-<div class="output_text output_subarea output_execute_result">
-<pre>'&lt;!DOCTYPE html&gt;\n&lt;html&gt;&lt;head&gt;\n&lt;title&gt;Department Listing: Journalism Courses in the Fall 2023 Semester&lt;/title&gt;\n&lt;meta charset="utf-8"&gt;\n&lt;meta name="robots" content="noindex,nofollow"&gt;\n&lt;link rel="stylesheet" href="../doc_main.v02.css"&gt;\n&lt;/head&gt;\n&lt;body&gt;&lt;div id="text-header"&gt;\n&lt;h1&gt;Department Listing: Journalism Courses in the Fall 2023 Semester&lt;/h1&gt;&lt;/div&gt;\n&lt;pre&gt;\n     Number Sec  Call#      Pts  Title                           Day Time          Room Building        Faculty\n                 L App Activity  Subject\n\nREGI J0001  001  12878     1-12  REGISTERED FOR JOURNALISM                                              \n                       DUMMY CO  Registered                                                             \nRESI J0001  001  12879        0  1-RESIDENCE UNIT F-T JOUR                                              \n                       INDEPEND  Residence Unit                                                         \nRSRH J0001  001  12880        0  RESEARCH-JOURNALISM                                                    \n                       INDEPEND  Research                                                               \nJOUR J0004  001  15231        0  Journalism Now                  T 6:00pm-7:30pm   301 Journalism Buil  O\'Kelley, Winnie\n                       REGISTRA  Journalism                                                             \nJOUR J0005  001  15355        0  MASTER\'S THESIS WORKSHOP        F 10:00am-11:30a  201 Journalism Buil  Belkin, Lisa\n                       DUMMY CO  Journalism                                                             \nJOUR J0008  001  15697        0  LAB FEE REG                                                            \n                       DUMMY CO  Journalism                                                             \n                            Note: $50 lab fee for Photo I\nJOUR J0008  002  15698        0  VC Still Photo FALL                                                    \n                       DUMMY CO  Journali'</pre>
-</div>
 </div>
 </div>
 </div>
@@ -905,7 +646,7 @@ Jonathan Soma is the Knight Chair in Data Journalism at Columbia University's Jo
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=29ea6d87">
 <div class="input">
-<div class="prompt input_prompt">In [25]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
@@ -928,19 +669,6 @@ Jonathan Soma is the Knight Chair in Data Journalism at Columbia University's Jo
 </div>
 </div>
 </div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Based on my research, here is a two-sentence summary of Jonathan Soma:
-
-Jonathan Soma is the Knight Chair in Data Journalism at Columbia Journalism School, where he directs both the Data Journalism Master's program and the summer intensive Lede Program, and is known for his work making unapproachable data accessible to journalists. This fall semester (Fall 2024), he is teaching "Foundations of Computing" (JOUR J4001) on Mondays and Wednesdays from 9:00 AM to 12:00 PM.
-</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=54a66925"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -951,7 +679,7 @@ Jonathan Soma is the Knight Chair in Data Journalism at Columbia Journalism Scho
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=74e646b9">
 <div class="input">
-<div class="prompt input_prompt">In [82]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToolCallPart</span>
@@ -963,24 +691,6 @@ Jonathan Soma is the Knight Chair in Data Journalism at Columbia Journalism Scho
             <span class="nb">print</span><span class="p">(</span><span class="s2">"name:"</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">tool_name</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">"args:"</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">args_as_dict</span><span class="p">())</span>
 </pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-## TOOL CALLED
-name: duckduckgo_search
-args: {'query': 'Jonathan Soma'}
-
-## TOOL CALLED
-name: get_jrn_schedule
-args: {'semester': 'Fall', 'year': 2024}
-</pre>
-</div>
 </div>
 </div>
 </div>
@@ -996,7 +706,7 @@ args: {'semester': 'Fall', 'year': 2024}
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=b8334752">
 <div class="input">
-<div class="prompt input_prompt">In [27]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">braintrust.wrappers.pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup_pydantic_ai</span>
@@ -1006,20 +716,10 @@ args: {'semester': 'Fall', 'year': 2024}
 </div>
 </div>
 </div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[27]:</div>
-<div class="output_text output_subarea output_execute_result">
-<pre>True</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=5e6f4310">
 <div class="input">
-<div class="prompt input_prompt">In [28]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
@@ -1039,19 +739,6 @@ args: {'semester': 'Fall', 'year': 2024}
 <span class="s2">"""</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Perfect! I found the information I needed. Based on my research, here's a two-sentence summary:
-
-**Jonathan Soma is the Knight Chair in Data Journalism at Columbia Journalism School, directing both the Data Journalism MS program and serving as an educator focused on making data accessible and approachable.** Last semester (Spring 2026), he taught "Data, Computation, Innovation," a lecture course in the journalism department.
-</pre>
-</div>
 </div>
 </div>
 </div>
@@ -1081,27 +768,6 @@ args: {'semester': 'Fall', 'year': 2024}
 <span class="s2">"""</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/var/folders/25/h3prywj14qb0mlkl2s8bxq5m0000gn/T/ipykernel_92579/187993457.py:5: PydanticAIDeprecationWarning: WebSearch will stop auto-selecting DuckDuckGo based on package availability in v2. To keep this fallback, pass `local='duckduckgo'` (or `local=True`). To disable the fallback, pass `local=False`.
-  capabilities=[WebSearch()]
-</pre>
-</div>
-</div>
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre># Jonathan Soma
-
-[jonathansoma.com](https://jonathansoma.com/) indicates that Jonathan Soma is the Knight Chair of Data Journalism at Columbia University's Journalism School, where he runs a cat rescue, teaches data journalism, and creates educational resources about Python, AI, and data visualization. Based on the [Columbia University course catalog](https://peqod.com/prof/Jonathan_Soma), last semester (Fall 2025) he taught JOUR J4001, a data journalism course that met on Mondays and Wednesdays.
-</pre>
-</div>
 </div>
 </div>
 </div>
@@ -1138,7 +804,7 @@ args: {'semester': 'Fall', 'year': 2024}
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=698e9bda">
 <div class="input">
-<div class="prompt input_prompt">In [89]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai.mcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">MCPToolset</span>
@@ -1196,41 +862,6 @@ args: {'semester': 'Fall', 'year': 2024}
 
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Perfect! Here's what I found in the current directory:
-
-## Files in the Directory:
-
-**Files:**
-- `.DS_Store` - macOS system file
-- `Pydantic AI basics.ipynb` - Jupyter notebook for learning Pydantic AI
-- `public-records-story-candidates.md` - Markdown document
-- `talk.md` - Markdown document
-
-**Directories:**
-- `data/` - Directory for data files
-- `outputs/` - Directory for output files
-
-## How I Did It:
-
-I created a 5-slide PowerPoint presentation that documents the process:
-
-1. **Title Slide** - Introduction to the process
-2. **Step 1** - Explained how I used `list_allowed_directories()` to find the authorized directory path
-3. **Step 2** - Showed how I used `list_directory()` to scan the folder structure
-4. **Files Found** - Listed all 6 items (4 files, 2 directories) with descriptions
-5. **Summary** - Outlined the complete technical process
-
-The presentation has been saved as `Directory_Listing_Process.pptx` in your current directory!
-</pre>
-</div>
 </div>
 </div>
 </div>

@@ -145,6 +145,10 @@
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">]</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="s2">"OpenRouter API key: "</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"BRAINTRUST_API_KEY"</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"BRAINTRUST_API_KEY"</span><span class="p">]</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="s2">"OpenRouter API key: "</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Initialized."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -153,7 +157,9 @@
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=1e735376"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Putting-it-all-together">Putting it all together<a class="anchor-link" href="#Putting-it-all-together">¶</a></h1><p>Let's get a little wild. Let's say I'm reporting on zoning appeals in a small area in Virginia. How can I use agents to help speed up my work?</p>
+<h1 id="Agent-orchestration:-Controlling-your-agent-setup">Agent orchestration: Controlling your agent setup<a class="anchor-link" href="#Agent-orchestration:-Controlling-your-agent-setup">¶</a></h1><p>If we zoom out from "give an LLM a lot of toys to play with," we have to examine the question of how much control do we really want to give up? Do we let the LLM control the process start to finish, or do we set up stages, checkpoints and roles?</p>
+<p>This is <strong>agent orchestration</strong>. In the example below, we're going to leave behind the single-agent setup and move into a world of multiple agents that each have specialized roles.</p>
+<h2 id="Investigating-zoning-appeals">Investigating zoning appeals<a class="anchor-link" href="#Investigating-zoning-appeals">¶</a></h2><p>Let's get a little wild. Let's say I'm reporting on zoning appeals in a small area in Virginia. How can I use agents to help speed up my work?</p>
 <ul>
 <li>Meeting minutes: <a href="https://www.spotsylvania.va.us/1231/Board-of-Zoning-Appeals">https://www.spotsylvania.va.us/1231/Board-of-Zoning-Appeals</a></li>
 <li>Tax maps: <a href="https://experience.arcgis.com/experience/c73ae0e1367d408a835840aeb713614a">https://experience.arcgis.com/experience/c73ae0e1367d408a835840aeb713614a</a><ul>
@@ -171,7 +177,7 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=5db8d6c4">
 <div class="input">
-<div class="prompt input_prompt">In [181]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
@@ -233,9 +239,16 @@
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=94f3e459"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Step-one:-Extract-details-of-the-zoning-appeals-meeting">Step one: Extract details of the zoning appeals meeting<a class="anchor-link" href="#Step-one:-Extract-details-of-the-zoning-appeals-meeting">¶</a></h2>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=e1f4ce41">
 <div class="input">
-<div class="prompt input_prompt">In [182]:</div>
+<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pymupdf</span>
@@ -247,6 +260,13 @@
 <span class="n">details</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=7f344dab"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Step-two-(and-three):-Step-through-the-properties-mentioned,-looking-each-one-of-them-up.-Also-look-up-the-people!">Step two (and three): Step through the properties mentioned, looking each one of them up. Also look up the people!<a class="anchor-link" href="#Step-two-(and-three):-Step-through-the-properties-mentioned,-looking-each-one-of-them-up.-Also-look-up-the-people!">¶</a></h2>
 </div>
 </div>
 </div>
@@ -356,18 +376,6 @@
 </div>
 </div>
 </div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/var/folders/25/h3prywj14qb0mlkl2s8bxq5m0000gn/T/ipykernel_52413/3456784712.py:88: PydanticAIDeprecationWarning: WebFetch will stop auto-selecting the markdownify-based fetch tool based on package availability in v2. To keep this fallback, pass `local=True`. To disable the fallback, pass `local=False`.
-  capabilities=[WebFetch(native=True)],
-</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=707c1143">
 <div class="input">
@@ -438,19 +446,31 @@
 </div>
 </div>
 </div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Researching case: V25-0002
-Researching case: V25-0001
-Researching case: A24-0002
-Researching case: None
-Researching case: None
-</pre>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=d96330f5">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">details</span>
+</pre></div>
 </div>
 </div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=f0d901ed"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Alternative-approaches">Alternative approaches<a class="anchor-link" href="#Alternative-approaches">¶</a></h2><p>Todo lists, worker-supervisor, planner-executor...</p>
+<ul>
+<li>What other approaches to research might be useful?</li>
+<li>Should we research companies separately from people?</li>
+<li>What if we want to look up each owner separately/applicant separately?</li>
+<li>What happens if we encounter new properties when researching a person online?<ul>
+<li>What if we encounter <em>many</em> addresses when researching people?</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 </div>
