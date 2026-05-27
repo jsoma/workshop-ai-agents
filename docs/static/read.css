@@ -80,8 +80,17 @@
 .nb-try-menu > summary::-webkit-details-marker {
     display: none;
 }
+.nb-try-menu > .nb-action-colab {
+    position: relative;
+    display: block;
+    text-align: center;
+}
 .nb-try-menu > .nb-action-colab::after {
-    content: ' \25BE';
+    content: '\25BE';
+    position: absolute;
+    right: 1.1em;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 0.9em;
 }
 .nb-try-options {

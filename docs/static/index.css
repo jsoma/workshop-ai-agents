@@ -96,8 +96,17 @@
 .try-menu > summary::-webkit-details-marker {
     display: none;
 }
+.try-menu > .primary-btn {
+    position: relative;
+    display: block;
+    text-align: center;
+}
 .try-menu > .primary-btn::after {
-    content: ' \25BE';
+    content: '\25BE';
+    position: absolute;
+    right: 1.1em;
+    top: 50%;
+    transform: translateY(-50%);
 }
 .try-options {
     position: absolute;

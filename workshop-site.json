@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "tool": "workshop-publisher",
+  "tool_version": "0.1.0",
+  "built_at": "2026-05-25T13:49:49-04:00",
+  "project_root": "/Users/soma/Library/CloudStorage/Dropbox/Soma/Curriculum/2026-dataharvest/pydantic-ai",
+  "config_path": "workshop-config.yaml",
+  "build_command": [
+    "workshop-publish"
+  ],
+  "build_target": null,
+  "title": "Agentic AI with Pydantic AI",
+  "description": "Hands-on notebooks for building agentic workflows, structured extraction, tool use, web research, tracing, and local orchestration with Pydantic AI.",
+  "event": "Dataharvest 2026",
+  "author": "Jonathan Soma",
+  "github_repo": "jsoma/workshop-ai-agents",
+  "github_branch": "main",
+  "required_env_keys": [],
+  "site_dir": "docs",
+  "index_html": "docs/index.html",
+  "counts": {
+    "items": 3
+  }
+}
