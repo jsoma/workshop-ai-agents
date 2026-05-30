@@ -180,10 +180,16 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">markdownify</span><span class="w"> </span><span class="kn">import</span> <span class="n">markdownify</span> <span class="k">as</span> <span class="n">md</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">getpass</span><span class="w"> </span><span class="kn">import</span> <span class="n">getpass</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">braintrust.wrappers.pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup_pydantic_ai</span>
 
 <span class="n">load_dotenv</span><span class="p">()</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">]</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="s2">"OpenRouter API key: "</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"BRAINTRUST_API_KEY"</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"BRAINTRUST_API_KEY"</span><span class="p">]</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="s2">"Braintrust API key: "</span><span class="p">)</span>
+
 <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"BRAINTRUST_API_KEY"</span><span class="p">):</span>
     <span class="n">setup_pydantic_ai</span><span class="p">(</span><span class="n">project_name</span><span class="o">=</span><span class="s2">"dataharvest-2026"</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">"Braintrust connection established."</span><span class="p">)</span>
