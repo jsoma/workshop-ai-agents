@@ -71,7 +71,13 @@
         
         <li>
             
-            <a href="../03-pydantic-ai-orchestration/03-pydantic-ai-orchestration-ANSWERS.html">Pydantic AI orchestration</a>
+            <a href="../03-pydantic-ai-and-property-ownership-orchestration/03-pydantic-ai-orchestration-ANSWERS.html">Pydantic AI orchestration</a>
+            
+        </li>
+        
+        <li>
+            
+            <a href="../04-pydantic-ai-and-oil-spills-more-orchestration/04-pydantic-ai-north-dakota-spills-ANSWERS.html">Pydantic AI orchestration</a>
             
         </li>
         
@@ -101,13 +107,13 @@
 </div>
 
 
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=3c36cbff">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=508ce77b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Install required packages</span>
-<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="o">--</span><span class="n">quiet</span> <span class="n">ipywidgets</span> <span class="s1">'pydantic-ai-slim[openrouter,tavily]'</span> <span class="n">python</span><span class="o">-</span><span class="n">dotenv</span> <span class="n">braintrust</span> <span class="n">perplexityai</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">quiet</span> <span class="n">ipywidgets</span> <span class="s1">'pydantic-ai-slim[openrouter,tavily]'</span> <span class="n">python</span><span class="o">-</span><span class="n">dotenv</span> <span class="n">braintrust</span> <span class="n">perplexityai</span> <span class="n">fastmcp</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">'✓ Packages installed!'</span><span class="p">)</span>
 </pre></div>
@@ -125,7 +131,7 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=aa1cde11">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -155,6 +161,17 @@
 </div>
 </div>
 </div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Keys initialized.
+</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=426b03c7"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -165,7 +182,7 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=187019ad">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">braintrust.wrappers.pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup_pydantic_ai</span>
@@ -176,6 +193,17 @@
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">"Set BRAINTRUST_API_KEY to enable Braintrust tracing."</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Braintrust connection established.
+</pre>
+</div>
 </div>
 </div>
 </div>
@@ -203,6 +231,8 @@
 <span class="c1"># Also set up the Perplexity tool</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">Perplexity</span><span class="p">()</span>
 
+<span class="c1"># This is the other way to add a tool.</span>
+<span class="c1"># Details at https://pydantic.dev/docs/ai/tools-toolsets/tools/</span>
 <span class="nd">@agent</span><span class="o">.</span><span class="n">tool_plain</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">perplexity_research</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Do research on a topic using Perplexity.</span>
@@ -282,12 +312,41 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=b1e5cc81">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">result</span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[4]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>{'is_valid': True,
+ 'credibility': 7,
+ 'newsworthiness': 8,
+ 'validity': 7,
+ 'beat': 'crime',
+ 'summary': "A person identifying as the treasurer of Fayetteville, NC claims the mayor has been embezzling funds and states they have documentary evidence. Fayetteville's current treasurer is Charles Brioso, who has been in the role since April 2024. The tipster claims direct access to evidence of financial crimes.",
+ 'research': "TIPSTER CREDIBILITY: Jonathan Soma is the Knight Chair of Data Journalism at Columbia University's Journalism School, director of the Data Journalism MS program and the Lede Program, and a recognized expert in investigative journalism and AI tools for journalism. He has worked with ProPublica, The New York Times, and WNYC. His email (jonathan.soma@gmail.com) matches his publicly listed contact information on his personal website. However, there is no public record indicating he is or has been the treasurer of Fayetteville, NC. The current city treasurer is Charles Brioso (as of April 2024), who holds a CMA and CPA certification. POTENTIAL SCENARIOS: This could be (1) an inside source testing journalism outlets, (2) someone impersonating Soma, (3) Soma using a pseudonym intentionally, (4) Soma's email compromised, or (5) a test of editorial processes. FAYETTEVILLE CONTEXT: Mayor Mitch Colvin has served since December 2017. Public records show past controversies including: a $200,000 settlement regarding discrimination/disrespect allegations (2024), questions about a $1,000 donation from a contractor who later failed to complete $7.9 million in city projects, and transparency concerns regarding federal fund usage and fake bonding companies. However, NO current public allegations of mayoral embezzlement exist. The fraud scandal involved a former mayoral candidate (Franco Webb), not the sitting mayor.",
+ 'follow_up_questions': ["Can you provide your full name and verify your role as treasurer of Fayetteville? The city's current treasurer is listed as Charles Brioso.",
+  'Can you share the specific documents you mention as proof? What time period do they cover and what specific transactions do they reference?',
+  'Have you reported these allegations to law enforcement, city council, or other authorities? If so, which agencies and when?',
+  "What specific actions or transactions constitute the embezzlement you're alleging? Do you have bank records, purchase orders, or other documentation?",
+  'Are you aware of any ongoing investigations or audits related to mayoral finances?'],
+ 'email_response': "Subject: Re: Fayetteville Mayor Embezzlement Tip - Following Up\n\nDear Jonathan,\n\nThank you for submitting this tip regarding financial misconduct involving Fayetteville's city government. Allegations of embezzlement are serious matters that warrant investigation, and we take all credible leads seriously.\n\nBefore we proceed, we need to verify some details to ensure accuracy:\n\n1. Our records show that Charles Brioso is currently listed as the treasurer of the City of Fayetteville (in office since April 2024). Can you confirm your current role and how you're involved with city finances?\n\n2. To evaluate the strength of this tip, could you describe the nature of the alleged embezzlement and the time period it covers? What specific evidence do you have access to?\n\n3. Have you reported these allegations to law enforcement, city council, or an audit department? If so, which agencies have you contacted and when?\n\n4. Can you provide details about specific transactions, amounts, or accounts involved?\n\nWe understand that coming forward with allegations against city leadership can be complicated. However, we need to verify the sourcing and ensure we have sufficient documentation before proceeding with any investigation. Once we hear back from you with these details, we can assess next steps.\n\nPlease reply at your earliest convenience. You can reach us confidentially if needed.\n\nBest regards,\n[Newsroom]"}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=8788b301"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If this was an <strong>investigative story</strong>, what resources would we want to add?</p>
 </div>
 </div>
 </div>
@@ -299,7 +358,7 @@
     <a href="../01-pydantic-ai-basics/01-pydantic-ai-basics-ANSWERS.html" class="nb-nav-prev">&larr; Pydantic AI basics</a>
     
     
-    <a href="../03-pydantic-ai-orchestration/03-pydantic-ai-orchestration-ANSWERS.html" class="nb-nav-next">Pydantic AI orchestration &rarr;</a>
+    <a href="../03-pydantic-ai-and-property-ownership-orchestration/03-pydantic-ai-orchestration-ANSWERS.html" class="nb-nav-next">Pydantic AI orchestration &rarr;</a>
     
 </nav>
 

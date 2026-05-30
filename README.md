@@ -28,10 +28,18 @@ Build a tip-triage agent that combines Tavily search, Perplexity search, structu
 
 Try: [Open in Colab](https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/02-pydantic-ai-agents-in-action/02-pydantic-ai-agents-in-action-ANSWERS.ipynb) | [Colab (code-along)](https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/02-pydantic-ai-agents-in-action/02-pydantic-ai-agents-in-action.ipynb) | [Codespaces](https://codespaces.new/jsoma/workshop-ai-agents?ref=main) | [Download .ipynb](https://jsoma.github.io/workshop-ai-agents/02-pydantic-ai-agents-in-action/02-pydantic-ai-agents-in-action-ANSWERS.ipynb) | [Read online](https://jsoma.github.io/workshop-ai-agents/02-pydantic-ai-agents-in-action/02-pydantic-ai-agents-in-action-ANSWERS.html)
 
-### 03. Pydantic AI orchestration
+### 03. Pydantic AI and property ownership (orchestration)
 
 #### Pydantic AI orchestration
 
 Chain extraction, public records lookup, assessment search, and applicant research into a reporting workflow.
 
-Try: [Open in Colab](https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/03-pydantic-ai-orchestration/03-pydantic-ai-orchestration-ANSWERS.ipynb) | [Colab (code-along)](https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/03-pydantic-ai-orchestration/03-pydantic-ai-orchestration.ipynb) | [Codespaces](https://codespaces.new/jsoma/workshop-ai-agents?ref=main) | [Download .ipynb](https://jsoma.github.io/workshop-ai-agents/03-pydantic-ai-orchestration/03-pydantic-ai-orchestration-ANSWERS.ipynb) | [Read online](https://jsoma.github.io/workshop-ai-agents/03-pydantic-ai-orchestration/03-pydantic-ai-orchestration-ANSWERS.html)
+Try: [Open in Colab](https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/03-pydantic-ai-and-property-ownership-orchestration/03-pydantic-ai-orchestration-ANSWERS.ipynb) | [Colab (code-along)](https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/03-pydantic-ai-and-property-ownership-orchestration/03-pydantic-ai-orchestration.ipynb) | [Codespaces](https://codespaces.new/jsoma/workshop-ai-agents?ref=main) | [Download .ipynb](https://jsoma.github.io/workshop-ai-agents/03-pydantic-ai-and-property-ownership-orchestration/03-pydantic-ai-orchestration-ANSWERS.ipynb) | [Read online](https://jsoma.github.io/workshop-ai-agents/03-pydantic-ai-and-property-ownership-orchestration/03-pydantic-ai-orchestration-ANSWERS.html)
+
+### 04. Pydantic AI and oil spills (more orchestration)
+
+#### Pydantic AI orchestration
+
+When do we really need AI?
+
+Try: [Open in Colab](https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/04-pydantic-ai-and-oil-spills-more-orchestration/04-pydantic-ai-north-dakota-spills-ANSWERS.ipynb) | [Colab (code-along)](https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/04-pydantic-ai-and-oil-spills-more-orchestration/04-pydantic-ai-north-dakota-spills.ipynb) | [Codespaces](https://codespaces.new/jsoma/workshop-ai-agents?ref=main) | [Download .ipynb](https://jsoma.github.io/workshop-ai-agents/04-pydantic-ai-and-oil-spills-more-orchestration/04-pydantic-ai-north-dakota-spills-ANSWERS.ipynb) | [Read online](https://jsoma.github.io/workshop-ai-agents/04-pydantic-ai-and-oil-spills-more-orchestration/04-pydantic-ai-north-dakota-spills-ANSWERS.html)

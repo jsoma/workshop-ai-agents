@@ -1,0 +1,228 @@
+{
+  "generated_at": "2026-05-28T14:36:50.009095+00:00",
+  "probe_names": [
+    "mn-hennepin-property",
+    "nd-business",
+    "nd-oilgas-operator",
+    "nd-oilgas-township"
+  ],
+  "results": [
+    {
+      "name": "Hennepin County parcel/property ArcGIS query",
+      "state": "MN",
+      "source_type": "property_records",
+      "url": "https://gis.hennepin.us/arcgis/rest/services/HennepinData/LAND_PROPERTY/MapServer/1/query",
+      "ok": true,
+      "status_code": 200,
+      "challenge_markers": [],
+      "row_count": 3,
+      "sample": [
+        {
+          "PID": "0102724110003",
+          "OWNER_NM": "INTERSTATE BLOOMINGTON LLC",
+          "TAXPAYER_NM": "INTERSTATE BLOOMINGTON LLC",
+          "HOUSE_NO": 2901,
+          "STREET_NM": "78TH ST E",
+          "MUNIC_NM": "BLOOMINGTON",
+          "MKT_VAL_TOT": 3444700,
+          "TAX_TOT": 109672.88
+        },
+        {
+          "PID": "0102724110004",
+          "OWNER_NM": "METRO PARKWAY ASSOCIATES",
+          "TAXPAYER_NM": "METRO PARKWAY ASSOCIATES",
+          "HOUSE_NO": 7800,
+          "STREET_NM": "METRO PKWY",
+          "MUNIC_NM": "BLOOMINGTON",
+          "MKT_VAL_TOT": 2534400,
+          "TAX_TOT": 80219.78
+        },
+        {
+          "PID": "0102724110005",
+          "OWNER_NM": "DRFC METRO LLC",
+          "TAXPAYER_NM": "DRFC METRO LLC",
+          "HOUSE_NO": 7850,
+          "STREET_NM": "METRO PKWY",
+          "MUNIC_NM": "BLOOMINGTON",
+          "MKT_VAL_TOT": 1949000,
+          "TAX_TOT": 63060.66
+        }
+      ],
+      "notes": [
+        "ArcGIS FeatureServer query returned owner, taxpayer, address, valuation, and tax fields."
+      ]
+    },
+    {
+      "name": "North Dakota FirstStop business search",
+      "state": "ND",
+      "source_type": "company_listing",
+      "url": "https://firststop.sos.nd.gov/api/Records/businesssearch",
+      "ok": true,
+      "status_code": 200,
+      "challenge_markers": [],
+      "row_count": 2,
+      "sample": [
+        {
+          "id": 89166,
+          "record_number": "0000089534",
+          "title": "DEVON ENERGY WILLISTON, L.L.C. | Limited Liability Company - Business - Foreign",
+          "status": "Active",
+          "standing": "Good Standing",
+          "filing_date": "10/24/2007",
+          "detail": {
+            "Filing Type": "Limited Liability Company - Business - Foreign",
+            "Status": "Active",
+            "Formed In": "DELAWARE",
+            "Principal Address": "333 W SHERIDAN AVE\nOKDEC 44-422\nKRISTINE CRISS\nOKLAHOMA CITY, OK 73102",
+            "Commercial Registered Agent": "COGENCY GLOBAL INC.\n120 W SWEET AVE STE 9\nBISMARCK, ND  58504"
+          },
+          "history_sample": [
+            {
+              "AMENDMENT_TYPE": "Annual Report",
+              "AMENDMENT_NUM": "0007250715",
+              "AMENDMENT_DATE": "10/9/2025",
+              "AMENDMENT_DATE_SORT": "2025-10-09T10:53:21.087",
+              "AMENDMENT_ID": 3732754,
+              "DOWNLOAD_LINK": null
+            },
+            {
+              "AMENDMENT_TYPE": "Merger",
+              "AMENDMENT_NUM": "0006952724",
+              "AMENDMENT_DATE": "1/7/2025",
+              "AMENDMENT_DATE_SORT": "2025-01-07T15:43:57",
+              "AMENDMENT_ID": 3523518,
+              "DOWNLOAD_LINK": null
+            },
+            {
+              "AMENDMENT_TYPE": "Annual Report",
+              "AMENDMENT_NUM": "0006840054",
+              "AMENDMENT_DATE": "10/7/2024",
+              "AMENDMENT_DATE_SORT": "2024-10-07T18:04:45.93",
+              "AMENDMENT_ID": 3441897,
+              "DOWNLOAD_LINK": null
+            }
+          ]
+        },
+        {
+          "id": 389917,
+          "record_number": "0006859519",
+          "title": "Devon Energy Williston, L.L.C. | Reserved Name",
+          "status": "Inactive - Voluntary",
+          "standing": "Good Standing",
+          "filing_date": "11/05/2024"
+        }
+      ],
+      "notes": [
+        "Detail and history endpoints also worked for record 0000089534."
+      ]
+    },
+    {
+      "name": "North Dakota DMR oil/gas wells by operator",
+      "state": "ND",
+      "source_type": "oil_gas_wells",
+      "url": "https://www.dmr.nd.gov/oilgas/findwellsvw.asp",
+      "ok": true,
+      "status_code": 200,
+      "challenge_markers": [],
+      "row_count": 123,
+      "sample": [
+        {
+          "File No": "30876",
+          "CTB No": "",
+          "API No": "3302502886",
+          "Well Type": "OG",
+          "Well Status": "PNC",
+          "Status Date": "9/30/2022",
+          "DTD": "",
+          "Location": "SWSE 19-147-91",
+          "Operator": "WPX ENERGY WILLISTON, LLC",
+          "Well Name": "Unicorn 15-19H",
+          "Field": "TWIN BUTTES"
+        },
+        {
+          "File No": "30877",
+          "CTB No": "",
+          "API No": "3302502887",
+          "Well Type": "OG",
+          "Well Status": "PNC",
+          "Status Date": "9/30/2022",
+          "DTD": "",
+          "Location": "SWSE 19-147-91",
+          "Operator": "WPX ENERGY WILLISTON, LLC",
+          "Well Name": "Dragon 15-19H",
+          "Field": "TWIN BUTTES"
+        },
+        {
+          "File No": "30878",
+          "CTB No": "",
+          "API No": "3302502888",
+          "Well Type": "OG",
+          "Well Status": "PNC",
+          "Status Date": "9/30/2022",
+          "DTD": "",
+          "Location": "SWSE 19-147-91",
+          "Operator": "WPX ENERGY WILLISTON, LLC",
+          "Well Name": "Mermaid 15-19H",
+          "Field": "TWIN BUTTES"
+        }
+      ],
+      "notes": [
+        "Landing form exposed 1597 operator options."
+      ]
+    },
+    {
+      "name": "North Dakota DMR oil/gas wells by township",
+      "state": "ND",
+      "source_type": "oil_gas_wells",
+      "url": "https://www.dmr.nd.gov/oilgas/findwellsvw.asp",
+      "ok": true,
+      "status_code": 200,
+      "challenge_markers": [],
+      "row_count": 166,
+      "sample": [
+        {
+          "File No": "3611",
+          "CTB No": "",
+          "API No": "3304500002",
+          "Well Type": "OG",
+          "Well Status": "DRY",
+          "Status Date": "8/6/1964",
+          "DTD": "1845",
+          "Location": "NWNW 22-133-61",
+          "Operator": "FORT UNION PETROLEUM CORP.",
+          "Well Name": "RYDER 1",
+          "Field": "WILDCAT"
+        },
+        {
+          "File No": "3999",
+          "CTB No": "",
+          "API No": "3304500003",
+          "Well Type": "OG",
+          "Well Status": "DRY",
+          "Status Date": "12/14/1965",
+          "DTD": "2511",
+          "Location": "NWNW 18-133-64",
+          "Operator": "VAUGHN PETROLEUM, INC.",
+          "Well Name": "H. SMITH 1",
+          "Field": "WILDCAT"
+        },
+        {
+          "File No": "4285",
+          "CTB No": "",
+          "API No": "3304500004",
+          "Well Type": "OG",
+          "Well Status": "DRY",
+          "Status Date": "7/13/1967",
+          "DTD": "2118",
+          "Location": "SESE 3-133-65",
+          "Operator": "ACME OIL CORP.",
+          "Well Name": "SCHLECHT 1",
+          "Field": "WILDCAT"
+        }
+      ],
+      "notes": [
+        "Landing form exposed 1597 operator options."
+      ]
+    }
+  ]
+}

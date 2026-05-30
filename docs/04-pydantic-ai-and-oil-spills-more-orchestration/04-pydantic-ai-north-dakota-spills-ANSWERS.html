@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pydantic AI orchestration</title>
+    
+    <meta name="description" content="When do we really need AI?">
+    <meta name="author" content="Jonathan Soma">
+    <link rel="canonical" href="https://jsoma.github.io/workshop-ai-agents/04-pydantic-ai-and-oil-spills-more-orchestration/04-pydantic-ai-north-dakota-spills-ANSWERS.html">
+    
+    
+    
+    <meta property="og:title" content="Pydantic AI orchestration">
+    <meta property="og:description" content="When do we really need AI?">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jsoma.github.io/workshop-ai-agents/04-pydantic-ai-and-oil-spills-more-orchestration/04-pydantic-ai-north-dakota-spills-ANSWERS.html">
+    <meta property="og:site_name" content="Agentic AI with Pydantic AI">
+    <meta property="og:image" content="https://jsoma.github.io/workshop-ai-agents/pydantic-ai-agents-social.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:alt" content="Pydantic AI orchestration preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pydantic AI orchestration">
+    <meta name="twitter:description" content="When do we really need AI?">
+    <meta name="twitter:image" content="https://jsoma.github.io/workshop-ai-agents/pydantic-ai-agents-social.png">
+    <meta name="twitter:image:alt" content="Pydantic AI orchestration preview">
+    <meta name="twitter:creator" content="@dangerscarf">
+    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/base.css">
+    
+<link rel="stylesheet" href="../static/read.css">
+
+    <script>
+    // Set theme before paint to avoid FOUC
+    (function(){var s=localStorage.getItem('theme');var t=s||(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.className='theme-'+(t==='dark'?'noir':'broadsheet');})();
+    </script>
+</head>
+<body>
+
+<div class="theme-switcher">
+    <button class="active" onclick="setTheme('dark', this)">Dark</button>
+    <button onclick="setTheme('light', this)">Light</button>
+</div>
+
+<div class="page">
+    
+
+<nav class="nb-topnav">
+    <a href="../index.html" class="nb-topnav-home">&larr; Home</a>
+    
+    <div class="nb-topnav-title">Agentic AI with Pydantic AI</div>
+    
+    <ol class="nb-topnav-list">
+        
+        <li>
+            
+            <a href="../01-pydantic-ai-basics/01-pydantic-ai-basics-ANSWERS.html">Pydantic AI basics</a>
+            
+        </li>
+        
+        <li>
+            
+            <a href="../02-pydantic-ai-agents-in-action/02-pydantic-ai-agents-in-action-ANSWERS.html">Pydantic AI agents in action</a>
+            
+        </li>
+        
+        <li>
+            
+            <a href="../03-pydantic-ai-and-property-ownership-orchestration/03-pydantic-ai-orchestration-ANSWERS.html">Pydantic AI orchestration</a>
+            
+        </li>
+        
+        <li class="is-current">
+            
+            <span class="nb-topnav-current">Pydantic AI orchestration</span>
+            
+        </li>
+        
+    </ol>
+</nav>
+
+
+
+<div class="nb-actions">
+    
+    <details class="nb-try-menu">
+        <summary class="nb-action-btn nb-action-colab">Try it</summary>
+        <div class="nb-try-options">
+            
+            <a href="https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/04-pydantic-ai-and-oil-spills-more-orchestration/04-pydantic-ai-north-dakota-spills-ANSWERS.ipynb" target="_blank" rel="noopener">Open in Colab</a>
+            
+            <a href="https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/04-pydantic-ai-and-oil-spills-more-orchestration/04-pydantic-ai-north-dakota-spills.ipynb" target="_blank" rel="noopener">Colab (code-along)</a>
+            
+            <a href="https://codespaces.new/jsoma/workshop-ai-agents?ref=main" target="_blank" rel="noopener">Codespaces</a>
+            
+        </div>
+    </details>
+    
+    
+    <a href="04-pydantic-ai-north-dakota-spills-ANSWERS.ipynb" class="nb-action-btn nb-action-download" download>Download notebook</a>
+    
+</div>
+
+
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=72529df7">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Install required packages</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">quiet</span> <span class="n">ipywidgets</span> <span class="s1">'pydantic-ai-slim[openrouter,web-fetch]'</span> <span class="n">python</span><span class="o">-</span><span class="n">dotenv</span> <span class="n">pymupdf</span> <span class="n">requests</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>
+
+<span class="c1"># Download and extract data files</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">'https://github.com/jsoma/workshop-ai-agents/raw/main/docs/04-pydantic-ai-and-oil-spills-more-orchestration/04-pydantic-ai-north-dakota-spills-data.zip'</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Downloading data from </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s1">...'</span><span class="p">)</span>
+<span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s1">'04-pydantic-ai-north-dakota-spills-data.zip'</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Extracting 04-pydantic-ai-north-dakota-spills-data.zip...'</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s1">'04-pydantic-ai-north-dakota-spills-data.zip'</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
+    <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">'04-pydantic-ai-north-dakota-spills-data.zip'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'✓ Data files extracted!'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=acd807af"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="A-very-complicated---overly-complicated?---search-for-oil-spills-in-North-Dakota">A very complicated - overly complicated? - search for oil spills in North Dakota<a class="anchor-link" href="#A-very-complicated---overly-complicated?---search-for-oil-spills-in-North-Dakota">¶</a></h1><p>Let's see what Pydantic AI can do for us.</p>
+<p>We start with a <a href="https://github.com/jsoma/workshop-ai-agents/tree/main/data/incidents/5984_95276.pdf">PDF about an oil spill</a> from the <a href="https://northdakota.hazconnect.com/ListIncidentPublic.aspx?t2nq=0HrHfESYqsvwEf6ZIKn9mpnPpfGNY1HOBkcK2Y2Yegk=">Hazconnect system</a>.</p>
+<p>Information on the incident reports can be incomplete, so we then use Pydantic AI to extract the entities from the document, perform research, and write a report.</p>
+<ul>
+<li><a href="https://firststop.sos.nd.gov/search/business">North Dakota business entity search</a></li>
+<li><a href="https://www.dmr.nd.gov/oilgas/findwellsvw.asp">North Dakota oil/gas well search</a></li>
+<li><a href="https://safer.fmcsa.dot.gov/">US Dep't of Transportation Safety system</a></li>
+<li><a href="https://www.tavily.com/">Tavily web search</a></li>
+</ul>
+<p>The important part of this one is it's a <strong>structured path</strong>. Does it actually benefit from being agentic?</p>
+<h2 id="Setup-portion">Setup portion<a class="anchor-link" href="#Setup-portion">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8d3cad21">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ipaddress</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">textwrap</span><span class="w"> </span><span class="kn">import</span> <span class="n">dedent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Literal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">urllib.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">quote_plus</span><span class="p">,</span> <span class="n">urljoin</span><span class="p">,</span> <span class="n">urlparse</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">braintrust</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pymupdf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bs4</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">markdownify</span><span class="w"> </span><span class="kn">import</span> <span class="n">markdownify</span> <span class="k">as</span> <span class="n">md</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">braintrust.wrappers.pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup_pydantic_ai</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"BRAINTRUST_API_KEY"</span><span class="p">):</span>
+    <span class="n">setup_pydantic_ai</span><span class="p">(</span><span class="n">project_name</span><span class="o">=</span><span class="s2">"dataharvest-2026"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Braintrust connection established."</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Set BRAINTRUST_API_KEY to enable Braintrust tracing."</span><span class="p">)</span>
+
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">"openrouter:google/gemini-3.1-flash-lite"</span>
+<span class="n">INCIDENT_PDF_PATHS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">Path</span><span class="p">(</span><span class="s2">"data/incidents/5981_95272.pdf"</span><span class="p">),</span>
+    <span class="n">Path</span><span class="p">(</span><span class="s2">"data/incidents/5984_95276.pdf"</span><span class="p">),</span>
+    <span class="n">Path</span><span class="p">(</span><span class="s2">"data/incidents/5976_95267.pdf"</span><span class="p">),</span>
+    <span class="n">Path</span><span class="p">(</span><span class="s2">"data/incidents/5978_95269.pdf"</span><span class="p">),</span>
+    <span class="n">Path</span><span class="p">(</span><span class="s2">"data/incidents/5986_95278.pdf"</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">OUTPUT_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"outputs/north_dakota_spill_research_reports.json"</span><span class="p">)</span>
+
+<span class="n">DMR_WELL_SEARCH_URL</span> <span class="o">=</span> <span class="s2">"https://www.dmr.nd.gov/oilgas/findwellsvw.asp"</span>
+<span class="n">ND_SOS_BUSINESS_SEARCH_URL</span> <span class="o">=</span> <span class="s2">"https://firststop.sos.nd.gov/api/Records/businesssearch"</span>
+<span class="n">ND_SOS_BASE_URL</span> <span class="o">=</span> <span class="s2">"https://firststop.sos.nd.gov"</span>
+<span class="n">FMCSA_BASE_URL</span> <span class="o">=</span> <span class="s2">"https://safer.fmcsa.dot.gov/"</span>
+<span class="n">TAVILY_SEARCH_URL</span> <span class="o">=</span> <span class="s2">"https://api.tavily.com/search"</span>
+<span class="n">USER_AGENT</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "</span>
+    <span class="s2">"AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=e8bf334e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Pydantic-data-classes">Pydantic data classes<a class="anchor-link" href="#Pydantic-data-classes">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=89077a81">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SourceLedgerEntry</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">source_type</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">accessed_at</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">())</span>
+    <span class="n">notes</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">IncidentLocation</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">address</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">latitude</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">longitude</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">section</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">township</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="nb">range</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">county_tribe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">IncidentParty</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">role</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">company</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">address</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">phone</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ReleasedMaterial</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">material</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">quantity</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">notes</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ResearchTarget</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"company"</span><span class="p">,</span> <span class="s2">"carrier"</span><span class="p">,</span> <span class="s2">"transporter"</span><span class="p">,</span> <span class="s2">"operator"</span><span class="p">,</span> <span class="s2">"well"</span><span class="p">,</span> <span class="s2">"field"</span><span class="p">,</span> <span class="s2">"location"</span><span class="p">,</span> <span class="s2">"document"</span><span class="p">,</span> <span class="s2">"other"</span><span class="p">]</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ExtractedIncident</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">pdf_path</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">incident_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">headline</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">incident_date_time</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">location</span><span class="p">:</span> <span class="n">IncidentLocation</span>
+    <span class="n">released_materials</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ReleasedMaterial</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">well_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ndic_file_number</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">oil_gas_operator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">oil_gas_field_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">facility_company_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">facility_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">reporting_party</span><span class="p">:</span> <span class="n">IncidentParty</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">contacts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">IncidentParty</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">transportation_related</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">oil_gas_related</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">research_targets</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ResearchTarget</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">source_ledger</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">SourceLedgerEntry</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ResearchFinding</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"company"</span><span class="p">,</span> <span class="s2">"carrier"</span><span class="p">,</span> <span class="s2">"well"</span><span class="p">,</span> <span class="s2">"field"</span><span class="p">,</span> <span class="s2">"document"</span><span class="p">,</span> <span class="s2">"other"</span><span class="p">]</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">relation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">summary</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">source_ledger</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">SourceLedgerEntry</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">IncidentResearch</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">summary</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">searches_performed</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">findings</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ResearchFinding</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">unresolved_questions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">source_ledger</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">SourceLedgerEntry</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SpecialistFindings</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">company_and_carrier</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ResearchFinding</span><span class="p">]</span>
+    <span class="n">well_and_field</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ResearchFinding</span><span class="p">]</span>
+    <span class="n">outside_document</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ResearchFinding</span><span class="p">]</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">IncidentSynthesis</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">incident_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">narrative</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">parties_involved</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">what_happened</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">related_wells_or_fields</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">useful_sources</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">SourceLedgerEntry</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">unresolved_leads</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">IncidentRun</span><span class="p">:</span>
+    <span class="n">pdf_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">incident</span><span class="p">:</span> <span class="n">ExtractedIncident</span>
+    <span class="n">research</span><span class="p">:</span> <span class="n">IncidentResearch</span>
+    <span class="n">synthesis</span><span class="p">:</span> <span class="n">IncidentSynthesis</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=9dd84ac1"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Our-tools">Our tools<a class="anchor-link" href="#Our-tools">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=1f5d6fd5">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">now_iso</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_session</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">:</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">"User-Agent"</span><span class="p">:</span> <span class="n">USER_AGENT</span><span class="p">,</span> <span class="s2">"Accept-Language"</span><span class="p">:</span> <span class="s2">"en-US,en;q=0.9"</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">session</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">compact_text</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\s+"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\xa0</span><span class="s2">"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tool_json</span><span class="p">(</span><span class="n">payload</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">ledger</span><span class="p">(</span><span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">source_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">notes</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"title"</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span> <span class="s2">"url"</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="s2">"source_type"</span><span class="p">:</span> <span class="n">source_type</span><span class="p">,</span> <span class="s2">"accessed_at"</span><span class="p">:</span> <span class="n">now_iso</span><span class="p">(),</span> <span class="s2">"notes"</span><span class="p">:</span> <span class="n">notes</span><span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">unique_ledgers</span><span class="p">(</span><span class="n">entries</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">SourceLedgerEntry</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">SourceLedgerEntry</span><span class="p">]:</span>
+    <span class="n">seen</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">unique</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">source_type</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">unique</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">unique</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fill_research_bookkeeping</span><span class="p">(</span><span class="n">research</span><span class="p">:</span> <span class="n">IncidentResearch</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IncidentResearch</span><span class="p">:</span>
+    <span class="n">source_ledger</span> <span class="o">=</span> <span class="n">unique_ledgers</span><span class="p">(</span>
+        <span class="n">research</span><span class="o">.</span><span class="n">source_ledger</span> <span class="o">+</span> <span class="p">[</span><span class="n">entry</span> <span class="k">for</span> <span class="n">finding</span> <span class="ow">in</span> <span class="n">research</span><span class="o">.</span><span class="n">findings</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">finding</span><span class="o">.</span><span class="n">source_ledger</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">searches_performed</span> <span class="o">=</span> <span class="n">research</span><span class="o">.</span><span class="n">searches_performed</span> <span class="ow">or</span> <span class="p">[</span>
+        <span class="n">entry</span><span class="o">.</span><span class="n">title</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">source_ledger</span>
+        <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">source_type</span>
+        <span class="ow">in</span> <span class="p">{</span>
+            <span class="s2">"state_business_records"</span><span class="p">,</span>
+            <span class="s2">"state_oil_gas_records"</span><span class="p">,</span>
+            <span class="s2">"federal_transportation_records"</span><span class="p">,</span>
+            <span class="s2">"web_search"</span><span class="p">,</span>
+            <span class="s2">"web_page"</span><span class="p">,</span>
+            <span class="s2">"remote_pdf"</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+    <span class="n">research</span><span class="o">.</span><span class="n">source_ledger</span> <span class="o">=</span> <span class="n">source_ledger</span>
+    <span class="n">research</span><span class="o">.</span><span class="n">searches_performed</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">searches_performed</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">research</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">read_incident_pdf_text</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Read one local North Dakota HazConnect incident PDF."""</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Incident PDF does not exist: </span><span class="si">{</span><span class="n">pdf_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">pymupdf</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span> <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tool_json</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">"pdf_path"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
+            <span class="s2">"page_count"</span><span class="p">:</span> <span class="n">doc</span><span class="o">.</span><span class="n">page_count</span><span class="p">,</span>
+            <span class="s2">"text"</span><span class="p">:</span> <span class="n">text</span><span class="p">,</span>
+            <span class="s2">"source_ledger"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">ledger</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Local HazConnect incident PDF </span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
+                    <span class="s2">"local_pdf"</span><span class="p">,</span>
+                    <span class="s2">"Read with PyMuPDF from the local data/incidents folder."</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_dmr_well_table</span><span class="p">(</span><span class="n">html</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s2">"html.parser"</span><span class="p">)</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"table"</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s2">"summary"</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">"Well Log search results"</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)})</span>
+    <span class="k">if</span> <span class="n">table</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="n">compact_text</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span> <span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"th"</span><span class="p">)]</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"tr"</span><span class="p">):</span>
+        <span class="n">cells</span> <span class="o">=</span> <span class="p">[</span><span class="n">compact_text</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span> <span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">tr</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"td"</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">cells</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">headers</span><span class="p">):</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">headers</span><span class="p">,</span> <span class="n">cells</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">rows</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">search_nd_oil_gas_wells</span><span class="p">(</span>
+    <span class="n">operator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">section</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">township</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">range_number</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Search North Dakota DMR well records. Use numeric township/range values, e.g. 152 and 98."""</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dmr_number</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\d+"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">match</span> <span class="k">else</span> <span class="s2">"0"</span>
+
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"VTI-GROUP"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+        <span class="s2">"ddmOperator"</span><span class="p">:</span> <span class="n">operator</span> <span class="ow">or</span> <span class="s2">" "</span><span class="p">,</span>
+        <span class="s2">"ddmField"</span><span class="p">:</span> <span class="n">field</span> <span class="ow">or</span> <span class="s2">" "</span><span class="p">,</span>
+        <span class="s2">"ddmSection"</span><span class="p">:</span> <span class="n">dmr_number</span><span class="p">(</span><span class="n">section</span><span class="p">),</span>
+        <span class="s2">"ddmTownship"</span><span class="p">:</span> <span class="n">dmr_number</span><span class="p">(</span><span class="n">township</span><span class="p">),</span>
+        <span class="s2">"ddmRange"</span><span class="p">:</span> <span class="n">dmr_number</span><span class="p">(</span><span class="n">range_number</span><span class="p">),</span>
+        <span class="s2">"B1"</span><span class="p">:</span> <span class="s2">"Submit"</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">make_session</span><span class="p">()</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="n">DMR_WELL_SEARCH_URL</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span>
+        <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">"Origin"</span><span class="p">:</span> <span class="s2">"https://www.dmr.nd.gov"</span><span class="p">,</span> <span class="s2">"Referer"</span><span class="p">:</span> <span class="n">DMR_WELL_SEARCH_URL</span><span class="p">},</span>
+        <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">parse_dmr_well_table</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tool_json</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">"query"</span><span class="p">:</span> <span class="n">payload</span><span class="p">,</span>
+            <span class="s2">"row_count"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">),</span>
+            <span class="s2">"rows"</span><span class="p">:</span> <span class="n">rows</span><span class="p">[:</span><span class="n">limit</span><span class="p">],</span>
+            <span class="s2">"truncated"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">limit</span><span class="p">,</span>
+            <span class="s2">"source_ledger"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">ledger</span><span class="p">(</span><span class="s2">"ND DMR oil/gas well search results"</span><span class="p">,</span> <span class="n">DMR_WELL_SEARCH_URL</span><span class="p">,</span> <span class="s2">"state_oil_gas_records"</span><span class="p">)</span>
+            <span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">search_nd_sos_businesses</span><span class="p">(</span><span class="n">search_value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">active_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Search North Dakota Secretary of State FirstStop business records."""</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">make_session</span><span class="p">()</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">ND_SOS_BASE_URL</span><span class="si">}</span><span class="s2">/search/business"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="n">ND_SOS_BUSINESS_SEARCH_URL</span><span class="p">,</span>
+        <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"SEARCH_VALUE"</span><span class="p">:</span> <span class="n">search_value</span><span class="p">,</span> <span class="s2">"STARTS_WITH_YN"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"ACTIVE_ONLY_YN"</span><span class="p">:</span> <span class="n">active_only</span><span class="p">},</span>
+        <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"authorization"</span><span class="p">:</span> <span class="s2">"undefined"</span><span class="p">,</span>
+            <span class="s2">"content-type"</span><span class="p">:</span> <span class="s2">"application/json"</span><span class="p">,</span>
+            <span class="s2">"origin"</span><span class="p">:</span> <span class="n">ND_SOS_BASE_URL</span><span class="p">,</span>
+            <span class="s2">"referer"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">ND_SOS_BASE_URL</span><span class="si">}</span><span class="s2">/search/business"</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+    <span class="n">records</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"rows"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s2">"SORT_INDEX"</span><span class="p">])[:</span><span class="n">limit</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">tool_json</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">"search_value"</span><span class="p">:</span> <span class="n">search_value</span><span class="p">,</span>
+            <span class="s2">"record_count"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">),</span>
+            <span class="s2">"records"</span><span class="p">:</span> <span class="n">records</span><span class="p">,</span>
+            <span class="s2">"source_ledger"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">ledger</span><span class="p">(</span><span class="s2">"North Dakota FirstStop business search"</span><span class="p">,</span> <span class="n">ND_SOS_BUSINESS_SEARCH_URL</span><span class="p">,</span> <span class="s2">"state_business_records"</span><span class="p">)</span>
+            <span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">search_fmcsa_carriers</span><span class="p">(</span><span class="n">company_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Search FMCSA SAFER carrier records by company name."""</span>
+    <span class="n">search_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">FMCSA_BASE_URL</span><span class="si">}</span><span class="s2">keywordx.asp?searchstring=%2A</span><span class="si">{</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">company_name</span><span class="p">)</span><span class="si">}</span><span class="s2">%2A&amp;SEARCHTYPE="</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">make_session</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">search_url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s2">"html.parser"</span><span class="p">)</span>
+        <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"match_name"</span><span class="p">:</span> <span class="n">compact_text</span><span class="p">(</span><span class="n">anchor</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span> <span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
+                <span class="s2">"snapshot_url"</span><span class="p">:</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">FMCSA_BASE_URL</span><span class="p">,</span> <span class="n">anchor</span><span class="p">[</span><span class="s2">"href"</span><span class="p">]),</span>
+            <span class="p">}</span>
+            <span class="k">for</span> <span class="n">anchor</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="n">href</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">"queryCarrierSnapshot"</span> <span class="ow">in</span> <span class="n">anchor</span><span class="p">[</span><span class="s2">"href"</span><span class="p">]</span>
+        <span class="p">][:</span><span class="n">limit</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">tool_json</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">"company_name"</span><span class="p">:</span> <span class="n">company_name</span><span class="p">,</span>
+                <span class="s2">"match_count"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">),</span>
+                <span class="s2">"matches"</span><span class="p">:</span> <span class="n">matches</span><span class="p">,</span>
+                <span class="s2">"source_ledger"</span><span class="p">:</span> <span class="p">[</span><span class="n">ledger</span><span class="p">(</span><span class="s2">"FMCSA SAFER carrier search"</span><span class="p">,</span> <span class="n">search_url</span><span class="p">,</span> <span class="s2">"federal_transportation_records"</span><span class="p">)],</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">tool_json</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">"company_name"</span><span class="p">:</span> <span class="n">company_name</span><span class="p">,</span>
+                <span class="s2">"match_count"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"matches"</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">"source_ledger"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="n">ledger</span><span class="p">(</span>
+                        <span class="s2">"FMCSA SAFER carrier search failed"</span><span class="p">,</span>
+                        <span class="n">search_url</span><span class="p">,</span>
+                        <span class="s2">"federal_transportation_records"</span><span class="p">,</span>
+                        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tavily_search</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_results</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Search the web with Tavily."""</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="n">TAVILY_SEARCH_URL</span><span class="p">,</span>
+        <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">"Authorization"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Bearer </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'TAVILY_API_KEY'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">},</span>
+        <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"query"</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
+            <span class="s2">"max_results"</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">max_results</span><span class="p">,</span> <span class="mi">8</span><span class="p">)),</span>
+            <span class="s2">"search_depth"</span><span class="p">:</span> <span class="s2">"basic"</span><span class="p">,</span>
+            <span class="s2">"include_answer"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">"include_raw_content"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">tool_json</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">"query"</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
+            <span class="s2">"results"</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"results"</span><span class="p">],</span>
+            <span class="s2">"source_ledger"</span><span class="p">:</span> <span class="p">[</span><span class="n">ledger</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tavily search: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">TAVILY_SEARCH_URL</span><span class="p">,</span> <span class="s2">"web_search"</span><span class="p">)],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">assert_safe_public_url</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"http"</span><span class="p">,</span> <span class="s2">"https"</span><span class="p">}</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Only public http(s) URLs can be fetched."</span><span class="p">)</span>
+    <span class="n">hostname</span> <span class="o">=</span> <span class="n">parsed</span><span class="o">.</span><span class="n">hostname</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">hostname</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"localhost"</span><span class="p">,</span> <span class="s2">"127.0.0.1"</span><span class="p">,</span> <span class="s2">"::1"</span><span class="p">}</span> <span class="ow">or</span> <span class="n">hostname</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".local"</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Local URLs are not allowed."</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">socket</span><span class="o">.</span><span class="n">getaddrinfo</span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">ip</span> <span class="o">=</span> <span class="n">ipaddress</span><span class="o">.</span><span class="n">ip_address</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">ip</span><span class="o">.</span><span class="n">is_private</span> <span class="ow">or</span> <span class="n">ip</span><span class="o">.</span><span class="n">is_loopback</span> <span class="ow">or</span> <span class="n">ip</span><span class="o">.</span><span class="n">is_link_local</span> <span class="ow">or</span> <span class="n">ip</span><span class="o">.</span><span class="n">is_multicast</span> <span class="ow">or</span> <span class="n">ip</span><span class="o">.</span><span class="n">is_reserved</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Refusing to fetch non-public address </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parsed</span><span class="o">.</span><span class="n">geturl</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">safe_fetch_url</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_chars</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12000</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Fetch a public web page or PDF and return extracted text."""</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">make_session</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">assert_safe_public_url</span><span class="p">(</span><span class="n">url</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
+        <span class="n">content_type</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"content-type"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+        <span class="n">is_pdf</span> <span class="o">=</span> <span class="s2">"pdf"</span> <span class="ow">in</span> <span class="n">content_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="n">content</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">"%PDF-"</span> <span class="ow">or</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".pdf"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_pdf</span><span class="p">:</span>
+            <span class="n">doc</span> <span class="o">=</span> <span class="n">pymupdf</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">content</span><span class="p">,</span> <span class="n">filetype</span><span class="o">=</span><span class="s2">"pdf"</span><span class="p">)</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span> <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">)</span>
+            <span class="n">source_type</span> <span class="o">=</span> <span class="s2">"remote_pdf"</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">html</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">encoding</span> <span class="ow">or</span> <span class="s2">"utf-8"</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">"replace"</span><span class="p">)</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">md</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="n">strip</span><span class="o">=</span><span class="p">[</span><span class="s2">"script"</span><span class="p">,</span> <span class="s2">"style"</span><span class="p">,</span> <span class="s2">"img"</span><span class="p">])</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">source_type</span> <span class="o">=</span> <span class="s2">"web_page"</span>
+
+        <span class="k">return</span> <span class="n">tool_json</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">"url"</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">content_type</span><span class="p">,</span>
+                <span class="s2">"text"</span><span class="p">:</span> <span class="n">text</span><span class="p">[:</span><span class="n">max_chars</span><span class="p">],</span>
+                <span class="s2">"truncated"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_chars</span><span class="p">,</span>
+                <span class="s2">"source_ledger"</span><span class="p">:</span> <span class="p">[</span><span class="n">ledger</span><span class="p">(</span><span class="s2">"Fetched URL"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">source_type</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"HTTP </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">"</span><span class="p">)],</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>  <span class="c1"># noqa: BLE001 - bad search results should become evidence, not crashes.</span>
+        <span class="k">return</span> <span class="n">tool_json</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">"url"</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
+                <span class="s2">"text"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                <span class="s2">"truncated"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">"source_ledger"</span><span class="p">:</span> <span class="p">[</span><span class="n">ledger</span><span class="p">(</span><span class="s2">"Fetch failed"</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="s2">"web_page"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span><span class="p">)],</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=9ac8c22a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Our-agents">Our agents<a class="anchor-link" href="#Our-agents">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=29958204">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">extraction_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="n">MODEL</span><span class="p">,</span>
+    <span class="n">output_type</span><span class="o">=</span><span class="n">ExtractedIncident</span><span class="p">,</span>
+    <span class="n">tool_retries</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">read_incident_pdf_text</span><span class="p">],</span>
+    <span class="n">instructions</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">You extract structured details from one North Dakota HazConnect incident PDF.</span>
+<span class="s2">Read the PDF path provided by the user, then fill the schema literally.</span>
+
+<span class="s2">Do not infer missing names or numbers. Capture companies, transporters,</span>
+<span class="s2">operators, wells, fields, facilities, addresses, location clues, and materials</span>
+<span class="s2">when the PDF states them. Create research_targets for leads an investigator</span>
+<span class="s2">should pursue next, and preserve the local PDF source ledger.</span>
+<span class="s2">"""</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="n">company_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="n">MODEL</span><span class="p">,</span>
+    <span class="n">output_type</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">ResearchFinding</span><span class="p">],</span>
+    <span class="n">tool_retries</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">search_nd_sos_businesses</span><span class="p">,</span> <span class="n">search_fmcsa_carriers</span><span class="p">],</span>
+    <span class="n">instructions</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">You are the company and carrier research specialist.</span>
+
+<span class="s2">Use the incident details and research targets to decide which names are worth</span>
+<span class="s2">checking. Search North Dakota business records for companies/operators, and</span>
+<span class="s2">FMCSA records for likely transporters, haulers, or carriers. Return [] if this</span>
+<span class="s2">specialty has no useful lead. Preserve source ledger entries from tool results.</span>
+<span class="s2">"""</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="n">well_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="n">MODEL</span><span class="p">,</span>
+    <span class="n">output_type</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">ResearchFinding</span><span class="p">],</span>
+    <span class="n">tool_retries</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">search_nd_oil_gas_wells</span><span class="p">],</span>
+    <span class="n">instructions</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">You are the oil/gas well and field research specialist.</span>
+
+<span class="s2">Use explicit well, operator, field, section, township, and range details from</span>
+<span class="s2">the incident. If the incident gives section/township/range, a location search is</span>
+<span class="s2">usually the best first move. Return [] if there is no meaningful oil/gas or</span>
+<span class="s2">location lead.</span>
+
+<span class="s2">Do not treat a transportation or service company as a DMR operator unless the</span>
+<span class="s2">incident says it is one. A location-only well match is possibly_involved or</span>
+<span class="s2">context_only, not definitely_involved. Preserve source ledger entries.</span>
+<span class="s2">"""</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="n">document_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="n">MODEL</span><span class="p">,</span>
+    <span class="n">output_type</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">ResearchFinding</span><span class="p">],</span>
+    <span class="n">tool_retries</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">tavily_search</span><span class="p">,</span> <span class="n">safe_fetch_url</span><span class="p">],</span>
+    <span class="n">instructions</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">You are the outside-document research specialist.</span>
+
+<span class="s2">Build your own web queries from the incident. Look for public pages or PDFs that</span>
+<span class="s2">explain ownership, operators, fields, facilities, permits, stops, providers, or</span>
+<span class="s2">prior incidents. Keep this bounded: at most two web searches and two fetches.</span>
+<span class="s2">Tavily search results are leads, not evidence: fetch a promising result before</span>
+<span class="s2">turning it into a finding. Return document findings only, or [] if no outside</span>
+<span class="s2">document adds useful context. Preserve source ledgers.</span>
+<span class="s2">"""</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="n">research_editor_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="n">MODEL</span><span class="p">,</span>
+    <span class="n">output_type</span><span class="o">=</span><span class="n">IncidentResearch</span><span class="p">,</span>
+    <span class="n">instructions</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">You are the research editor for one North Dakota spill report.</span>
+
+<span class="s2">Specialist agents have already searched company/carrier records, oil/gas well</span>
+<span class="s2">records, and outside public documents. Combine their outputs into one concise</span>
+<span class="s2">research record. Use only the supplied incident and specialist findings. Do not</span>
+<span class="s2">invent facts. Preserve source ledger entries from the specialist findings.</span>
+<span class="s2">Keep useful outside-document findings visible as kind="document"; do not fold</span>
+<span class="s2">them into company or well findings.</span>
+
+<span class="s2">Well relation rules:</span>
+<span class="s2">- definitely_involved: the PDF or a public record names the specific well,</span>
+<span class="s2">  operator, file number, or facility involved.</span>
+<span class="s2">- possibly_involved: a well appears in the same section/township/range or field</span>
+<span class="s2">  but the incident does not name that well directly.</span>
+<span class="s2">- context_only: nearby or background records useful for understanding the area.</span>
+<span class="s2">"""</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="n">synthesis_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="n">MODEL</span><span class="p">,</span>
+    <span class="n">output_type</span><span class="o">=</span><span class="n">IncidentSynthesis</span><span class="p">,</span>
+    <span class="n">instructions</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">Synthesize one North Dakota spill investigation using only the extracted</span>
+<span class="s2">incident and research findings. Write a compact, specific narrative explaining</span>
+<span class="s2">what happened, who appears involved, which public records were found, what</span>
+<span class="s2">wells/fields may be related, and what remains unresolved. Preserve useful</span>
+<span class="s2">source ledger entries.</span>
+<span class="s2">"""</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=f9272ade"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="...some-more-little-convenience-pieces">...some more little convenience pieces<a class="anchor-link" href="#...some-more-little-convenience-pieces">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=94cf5391">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">extract_incident</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExtractedIncident</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">extraction_agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Extract the incident report at </span><span class="si">{</span><span class="n">pdf_path</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">output</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">research_incident</span><span class="p">(</span><span class="n">incident</span><span class="p">:</span> <span class="n">ExtractedIncident</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IncidentResearch</span><span class="p">:</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="n">dedent</span><span class="p">(</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Research your specialty for this spill report.</span>
+
+<span class="sd">        Incident:</span>
+<span class="sd">        {incident}</span>
+<span class="sd">        """</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">incident</span><span class="o">=</span><span class="n">incident</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"   company/carrier specialist..."</span><span class="p">)</span>
+    <span class="n">company_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">company_agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"   well/field specialist..."</span><span class="p">)</span>
+    <span class="n">well_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">well_agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"   outside-document specialist..."</span><span class="p">)</span>
+    <span class="n">document_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">document_agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+
+    <span class="n">specialist_findings</span> <span class="o">=</span> <span class="n">SpecialistFindings</span><span class="p">(</span>
+        <span class="n">company_and_carrier</span><span class="o">=</span><span class="n">company_response</span><span class="o">.</span><span class="n">output</span><span class="p">,</span>
+        <span class="n">well_and_field</span><span class="o">=</span><span class="n">well_response</span><span class="o">.</span><span class="n">output</span><span class="p">,</span>
+        <span class="n">outside_document</span><span class="o">=</span><span class="n">document_response</span><span class="o">.</span><span class="n">output</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">research_editor_agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+        <span class="n">dedent</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">"""</span>
+<span class="sd">            Combine this extracted incident and the specialist findings into one</span>
+<span class="sd">            structured research record.</span>
+
+<span class="sd">            Incident:</span>
+<span class="sd">            {incident}</span>
+
+<span class="sd">            Specialist findings:</span>
+<span class="sd">            {findings}</span>
+<span class="sd">            """</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">incident</span><span class="o">=</span><span class="n">incident</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">findings</span><span class="o">=</span><span class="n">specialist_findings</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">fill_research_bookkeeping</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">synthesize_incident</span><span class="p">(</span><span class="n">incident</span><span class="p">:</span> <span class="n">ExtractedIncident</span><span class="p">,</span> <span class="n">research</span><span class="p">:</span> <span class="n">IncidentResearch</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IncidentSynthesis</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">synthesis_agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+        <span class="n">dedent</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">"""</span>
+<span class="sd">            Extracted incident:</span>
+<span class="sd">            {incident}</span>
+
+<span class="sd">            Research findings:</span>
+<span class="sd">            {research}</span>
+<span class="sd">            """</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">incident</span><span class="o">=</span><span class="n">incident</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">research</span><span class="o">=</span><span class="n">research</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">output</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">markdown_bullets</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">)</span> <span class="k">if</span> <span class="n">items</span> <span class="k">else</span> <span class="s2">"- None noted."</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">markdown_sources</span><span class="p">(</span><span class="n">sources</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">SourceLedgerEntry</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sources</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"- None recorded."</span>
+    <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"- [</span><span class="si">{</span><span class="n">source</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2">](</span><span class="si">{</span><span class="n">source</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">) (</span><span class="si">{</span><span class="n">source</span><span class="o">.</span><span class="n">source_type</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">" - </span><span class="si">{</span><span class="n">source</span><span class="o">.</span><span class="n">notes</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">source</span><span class="o">.</span><span class="n">notes</span> <span class="k">else</span> <span class="s2">""</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">sources</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">markdown_report</span><span class="p">(</span>
+    <span class="n">incident</span><span class="p">:</span> <span class="n">ExtractedIncident</span><span class="p">,</span>
+    <span class="n">research</span><span class="p">:</span> <span class="n">IncidentResearch</span><span class="p">,</span>
+    <span class="n">synthesis</span><span class="p">:</span> <span class="n">IncidentSynthesis</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">sources</span> <span class="o">=</span> <span class="n">unique_ledgers</span><span class="p">(</span><span class="n">synthesis</span><span class="o">.</span><span class="n">useful_sources</span> <span class="ow">or</span> <span class="n">research</span><span class="o">.</span><span class="n">source_ledger</span><span class="p">)</span>
+    <span class="n">findings</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"- **</span><span class="si">{</span><span class="n">finding</span><span class="o">.</span><span class="n">kind</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">finding</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">**"</span>
+        <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">" (</span><span class="si">{</span><span class="n">finding</span><span class="o">.</span><span class="n">relation</span><span class="si">}</span><span class="s2">)"</span> <span class="k">if</span> <span class="n">finding</span><span class="o">.</span><span class="n">relation</span> <span class="k">else</span> <span class="s2">""</span><span class="p">)</span>
+        <span class="o">+</span> <span class="sa">f</span><span class="s2">" - </span><span class="si">{</span><span class="n">finding</span><span class="o">.</span><span class="n">summary</span><span class="si">}</span><span class="s2">"</span>
+        <span class="k">for</span> <span class="n">finding</span> <span class="ow">in</span> <span class="n">research</span><span class="o">.</span><span class="n">findings</span>
+    <span class="p">)</span>
+
+    <span class="n">sections</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">f</span><span class="s2">"## Incident </span><span class="si">{</span><span class="n">incident</span><span class="o">.</span><span class="n">incident_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">incident</span><span class="o">.</span><span class="n">headline</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="n">synthesis</span><span class="o">.</span><span class="n">narrative</span><span class="p">,</span>
+        <span class="s2">"### Parties Involved</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">markdown_bullets</span><span class="p">(</span><span class="n">synthesis</span><span class="o">.</span><span class="n">parties_involved</span><span class="p">),</span>
+        <span class="s2">"### What Happened</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">markdown_bullets</span><span class="p">(</span><span class="n">synthesis</span><span class="o">.</span><span class="n">what_happened</span><span class="p">),</span>
+        <span class="s2">"### Related Wells or Fields</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">markdown_bullets</span><span class="p">(</span><span class="n">synthesis</span><span class="o">.</span><span class="n">related_wells_or_fields</span><span class="p">),</span>
+        <span class="s2">"### Research Findings</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="p">(</span><span class="n">findings</span> <span class="ow">or</span> <span class="s2">"- None recorded."</span><span class="p">),</span>
+        <span class="s2">"### Unresolved Leads</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">markdown_bullets</span><span class="p">(</span><span class="n">synthesis</span><span class="o">.</span><span class="n">unresolved_leads</span><span class="p">),</span>
+        <span class="s2">"### Sources</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">markdown_sources</span><span class="p">(</span><span class="n">sources</span><span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="k">return</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">section</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">sections</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a2f99a77">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">write_outputs</span><span class="p">(</span><span class="n">runs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">IncidentRun</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">OUTPUT_PATH</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"generated_at"</span><span class="p">:</span> <span class="n">now_iso</span><span class="p">(),</span>
+        <span class="s2">"model"</span><span class="p">:</span> <span class="n">MODEL</span><span class="p">,</span>
+        <span class="s2">"incidents"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"pdf_path"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">run</span><span class="o">.</span><span class="n">pdf_path</span><span class="p">),</span>
+                <span class="s2">"incident"</span><span class="p">:</span> <span class="n">run</span><span class="o">.</span><span class="n">incident</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
+                <span class="s2">"research"</span><span class="p">:</span> <span class="n">run</span><span class="o">.</span><span class="n">research</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
+                <span class="s2">"synthesis"</span><span class="p">:</span> <span class="n">run</span><span class="o">.</span><span class="n">synthesis</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
+            <span class="p">}</span>
+            <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">runs</span>
+        <span class="p">],</span>
+    <span class="p">}</span>
+    <span class="n">OUTPUT_PATH</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Wrote </span><span class="si">{</span><span class="n">OUTPUT_PATH</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=f1c5efb9"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Let's-go!">Let's go!<a class="anchor-link" href="#Let's-go!">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=25b82ba9">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nd">@braintrust</span><span class="o">.</span><span class="n">traced</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">run_one_incident</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IncidentRun</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== </span><span class="si">{</span><span class="n">pdf_path</span><span class="si">}</span><span class="s2"> ==="</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"1. Extracting incident details..."</span><span class="p">)</span>
+    <span class="n">incident</span> <span class="o">=</span> <span class="k">await</span> <span class="n">extract_incident</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   Incident </span><span class="si">{</span><span class="n">incident</span><span class="o">.</span><span class="n">incident_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">incident</span><span class="o">.</span><span class="n">headline</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">incident</span><span class="o">.</span><span class="n">research_targets</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"   Research targets:"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">incident</span><span class="o">.</span><span class="n">research_targets</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"      - </span><span class="si">{</span><span class="n">target</span><span class="o">.</span><span class="n">kind</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">target</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">target</span><span class="o">.</span><span class="n">reason</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"2. Researching records and web sources..."</span><span class="p">)</span>
+    <span class="n">research</span> <span class="o">=</span> <span class="k">await</span> <span class="n">research_incident</span><span class="p">(</span><span class="n">incident</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   </span><span class="si">{</span><span class="n">research</span><span class="o">.</span><span class="n">summary</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"3. Synthesizing..."</span><span class="p">)</span>
+    <span class="n">synthesis</span> <span class="o">=</span> <span class="k">await</span> <span class="n">synthesize_incident</span><span class="p">(</span><span class="n">incident</span><span class="p">,</span> <span class="n">research</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">markdown_report</span><span class="p">(</span><span class="n">incident</span><span class="p">,</span> <span class="n">research</span><span class="p">,</span> <span class="n">synthesis</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">IncidentRun</span><span class="p">(</span><span class="n">pdf_path</span><span class="o">=</span><span class="n">pdf_path</span><span class="p">,</span> <span class="n">incident</span><span class="o">=</span><span class="n">incident</span><span class="p">,</span> <span class="n">research</span><span class="o">=</span><span class="n">research</span><span class="p">,</span> <span class="n">synthesis</span><span class="o">=</span><span class="n">synthesis</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b69ee5d4">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">runs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">pdf_path</span> <span class="ow">in</span> <span class="n">INCIDENT_PDF_PATHS</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
+    <span class="n">runs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">await</span> <span class="n">run_one_incident</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">))</span>
+<span class="n">write_outputs</span><span class="p">(</span><span class="n">runs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<nav class="nb-nav">
+    
+    <a href="../03-pydantic-ai-and-property-ownership-orchestration/03-pydantic-ai-orchestration-ANSWERS.html" class="nb-nav-prev">&larr; Pydantic AI orchestration</a>
+    
+    
+    <span></span>
+    
+</nav>
+
+
+
+
+</div>
+
+<script>
+function setTheme(theme, btn) {
+    var darkNames = {'dark':1, 'noir':1};
+    var cls = darkNames[theme] ? 'noir' : 'broadsheet';
+    document.documentElement.className = 'theme-' + cls;
+    document.querySelectorAll('.theme-switcher button').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    localStorage.setItem('theme', darkNames[theme] ? 'dark' : 'light');
+}
+
+// Sync button active state (theme already set by head script)
+(function() {
+    var saved = localStorage.getItem('theme');
+    var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    var label = theme === 'dark' ? 'Dark' : 'Light';
+    document.querySelectorAll('.theme-switcher button').forEach(function(b) {
+        b.classList.toggle('active', b.textContent.trim() === label);
+    });
+})();
+
+window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+    if (!localStorage.getItem('theme')) {
+        var cls = e.matches ? 'broadsheet' : 'noir';
+        document.documentElement.className = 'theme-' + cls;
+        var label = e.matches ? 'Light' : 'Dark';
+        document.querySelectorAll('.theme-switcher button').forEach(function(b) {
+            b.classList.toggle('active', b.textContent.trim() === label);
+        });
+    }
+});
+
+function loadSlides(slideId, slideUrl) {
+    var root = document.getElementById(slideId);
+    if (!root) return;
+    var preview = root.querySelector('.slide-preview');
+    var container = root.querySelector('.slide-container');
+    var frame = container && container.querySelector('iframe, embed');
+    if (frame && !frame.getAttribute('src')) {
+        frame.setAttribute('src', slideUrl);
+    }
+    if (preview) preview.style.display = 'none';
+    if (container) container.style.display = 'block';
+}
+
+document.addEventListener('click', function(event) {
+    document.querySelectorAll('details.try-menu[open], details.nb-try-menu[open]').forEach(function(menu) {
+        if (!menu.contains(event.target)) {
+            menu.removeAttribute('open');
+        }
+    });
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        document.querySelectorAll('details.try-menu[open], details.nb-try-menu[open]').forEach(function(menu) {
+            menu.removeAttribute('open');
+        });
+    }
+});
+</script>
+
+<script>
+// Detect blocked newsletter iframes and show a fallback link
+(function() {
+    function replaceWithLink(iframe, src) {
+        var link = document.createElement('a');
+        link.href = src;
+        link.className = 'newsletter-fallback-btn';
+        link.innerHTML = 'Subscribe to the newsletter &rarr;';
+        iframe.replaceWith(link);
+        // Also hide the beehiiv script tag if present
+        var scripts = document.querySelectorAll('.newsletter-signup script');
+        scripts.forEach(function(s) { s.remove(); });
+    }
+    document.querySelectorAll('.newsletter-signup iframe').forEach(function(iframe) {
+        var src = iframe.src;
+        if (!src) return;
+        // Check iframe dimensions after it settles — blocked iframes
+        // typically render as 0-height or very small
+        var timer = setTimeout(function() {
+            var h = iframe.offsetHeight || iframe.getBoundingClientRect().height;
+            if (h < 20) {
+                replaceWithLink(iframe, src);
+            }
+        }, 3000);
+    });
+})();
+</script>
+</body>
+</html>

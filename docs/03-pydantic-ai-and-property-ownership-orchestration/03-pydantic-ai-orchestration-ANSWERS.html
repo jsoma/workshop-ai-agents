@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pydantic AI orchestration</title>
+    
+    <meta name="description" content="Chain extraction, public records lookup, assessment search, and applicant research into a reporting workflow.">
+    <meta name="author" content="Jonathan Soma">
+    <link rel="canonical" href="https://jsoma.github.io/workshop-ai-agents/03-pydantic-ai-and-property-ownership-orchestration/03-pydantic-ai-orchestration-ANSWERS.html">
+    
+    
+    
+    <meta property="og:title" content="Pydantic AI orchestration">
+    <meta property="og:description" content="Chain extraction, public records lookup, assessment search, and applicant research into a reporting workflow.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jsoma.github.io/workshop-ai-agents/03-pydantic-ai-and-property-ownership-orchestration/03-pydantic-ai-orchestration-ANSWERS.html">
+    <meta property="og:site_name" content="Agentic AI with Pydantic AI">
+    <meta property="og:image" content="https://jsoma.github.io/workshop-ai-agents/pydantic-ai-agents-social.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:alt" content="Pydantic AI orchestration preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pydantic AI orchestration">
+    <meta name="twitter:description" content="Chain extraction, public records lookup, assessment search, and applicant research into a reporting workflow.">
+    <meta name="twitter:image" content="https://jsoma.github.io/workshop-ai-agents/pydantic-ai-agents-social.png">
+    <meta name="twitter:image:alt" content="Pydantic AI orchestration preview">
+    <meta name="twitter:creator" content="@dangerscarf">
+    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/base.css">
+    
+<link rel="stylesheet" href="../static/read.css">
+
+    <script>
+    // Set theme before paint to avoid FOUC
+    (function(){var s=localStorage.getItem('theme');var t=s||(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.className='theme-'+(t==='dark'?'noir':'broadsheet');})();
+    </script>
+</head>
+<body>
+
+<div class="theme-switcher">
+    <button class="active" onclick="setTheme('dark', this)">Dark</button>
+    <button onclick="setTheme('light', this)">Light</button>
+</div>
+
+<div class="page">
+    
+
+<nav class="nb-topnav">
+    <a href="../index.html" class="nb-topnav-home">&larr; Home</a>
+    
+    <div class="nb-topnav-title">Agentic AI with Pydantic AI</div>
+    
+    <ol class="nb-topnav-list">
+        
+        <li>
+            
+            <a href="../01-pydantic-ai-basics/01-pydantic-ai-basics-ANSWERS.html">Pydantic AI basics</a>
+            
+        </li>
+        
+        <li>
+            
+            <a href="../02-pydantic-ai-agents-in-action/02-pydantic-ai-agents-in-action-ANSWERS.html">Pydantic AI agents in action</a>
+            
+        </li>
+        
+        <li class="is-current">
+            
+            <span class="nb-topnav-current">Pydantic AI orchestration</span>
+            
+        </li>
+        
+        <li>
+            
+            <a href="../04-pydantic-ai-and-oil-spills-more-orchestration/04-pydantic-ai-north-dakota-spills-ANSWERS.html">Pydantic AI orchestration</a>
+            
+        </li>
+        
+    </ol>
+</nav>
+
+
+
+<div class="nb-actions">
+    
+    <details class="nb-try-menu">
+        <summary class="nb-action-btn nb-action-colab">Try it</summary>
+        <div class="nb-try-options">
+            
+            <a href="https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/03-pydantic-ai-and-property-ownership-orchestration/03-pydantic-ai-orchestration-ANSWERS.ipynb" target="_blank" rel="noopener">Open in Colab</a>
+            
+            <a href="https://colab.research.google.com/github/jsoma/workshop-ai-agents/blob/main/docs/03-pydantic-ai-and-property-ownership-orchestration/03-pydantic-ai-orchestration.ipynb" target="_blank" rel="noopener">Colab (code-along)</a>
+            
+            <a href="https://codespaces.new/jsoma/workshop-ai-agents?ref=main" target="_blank" rel="noopener">Codespaces</a>
+            
+        </div>
+    </details>
+    
+    
+    <a href="03-pydantic-ai-orchestration-ANSWERS.ipynb" class="nb-action-btn nb-action-download" download>Download notebook</a>
+    
+</div>
+
+
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=82e4d9b1">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Install required packages</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">quiet</span> <span class="n">ipywidgets</span> <span class="s1">'pydantic-ai-slim[openrouter,web-fetch]'</span> <span class="n">python</span><span class="o">-</span><span class="n">dotenv</span> <span class="n">pymupdf</span> <span class="n">requests</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>
+
+<span class="c1"># Download and extract data files</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">'https://github.com/jsoma/workshop-ai-agents/raw/main/docs/03-pydantic-ai-and-property-ownership-orchestration/03-pydantic-ai-orchestration-data.zip'</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Downloading data from </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s1">...'</span><span class="p">)</span>
+<span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s1">'03-pydantic-ai-orchestration-data.zip'</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Extracting 03-pydantic-ai-orchestration-data.zip...'</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s1">'03-pydantic-ai-orchestration-data.zip'</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
+    <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">'03-pydantic-ai-orchestration-data.zip'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'✓ Data files extracted!'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7e2a5490">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">getpass</span><span class="w"> </span><span class="kn">import</span> <span class="n">getpass</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai.capabilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebFetch</span><span class="p">,</span> <span class="n">WebSearch</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">]</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="s2">"OpenRouter API key: "</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"BRAINTRUST_API_KEY"</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"BRAINTRUST_API_KEY"</span><span class="p">]</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="s2">"Braintrust API key: "</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Initialized."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=1e735376"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Agent-orchestration:-Controlling-your-agent-setup">Agent orchestration: Controlling your agent setup<a class="anchor-link" href="#Agent-orchestration:-Controlling-your-agent-setup">¶</a></h1><p>If we zoom out from "give an LLM a lot of toys to play with," we have to examine the question of how much control do we really want to give up? Do we let the LLM control the process start to finish, or do we set up stages, checkpoints and roles?</p>
+<p>This is <strong>agent orchestration</strong>. In the example below, we're going to leave behind the single-agent setup and move into a world of multiple agents that each have specialized roles.</p>
+<h2 id="Investigating-zoning-appeals">Investigating zoning appeals<a class="anchor-link" href="#Investigating-zoning-appeals">¶</a></h2><p>Let's get a little wild. Let's say I'm reporting on zoning appeals in a small area in Virginia. How can I use agents to help speed up my work?</p>
+<ul>
+<li>Meeting minutes: <a href="https://www.spotsylvania.va.us/1231/Board-of-Zoning-Appeals">https://www.spotsylvania.va.us/1231/Board-of-Zoning-Appeals</a></li>
+<li>Tax maps: <a href="https://experience.arcgis.com/experience/c73ae0e1367d408a835840aeb713614a">https://experience.arcgis.com/experience/c73ae0e1367d408a835840aeb713614a</a><ul>
+<li><a href="https://gis.spotsylvania.va.us/historicaltaxmaps/2025/main/TM_5.pdf">https://gis.spotsylvania.va.us/historicaltaxmaps/2025/main/TM_5.pdf</a></li>
+</ul>
+</li>
+<li>Assessment search:<ul>
+<li><a href="https://www.spotsylvania.va.us/505/2026-Assessment-Search">https://www.spotsylvania.va.us/505/2026-Assessment-Search</a></li>
+<li>Actually this form <a href="https://apps.spotsylvaniacountyva.gov/assessment/assessment/index.cfm">https://apps.spotsylvaniacountyva.gov/assessment/assessment/index.cfm</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5db8d6c4">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s1">'openrouter:anthropic/claude-sonnet-4-5'</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Motion</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">related_case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">vote</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Compact vote result, e.g. '6-0', '5-1', or 'passed unanimously'"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">outcome</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ZoningCase</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">case_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Example: V25-0002, A24-0002"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">case_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"variance"</span><span class="p">,</span> <span class="s2">"appeal"</span><span class="p">,</span> <span class="s2">"minutes"</span><span class="p">,</span> <span class="s2">"election"</span><span class="p">,</span> <span class="s2">"other"</span><span class="p">]</span>
+    <span class="n">applicants</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">property_address</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">parcel_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">voting_district</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">request</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">staff_recommendation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">public_conflict</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Brief summary of major support/opposition or dispute"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">outcome</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MeetingDetails</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">meeting_date</span><span class="p">:</span> <span class="n">date</span>
+    <span class="n">location</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">members_present</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">staff_present</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">cases</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ZoningCase</span><span class="p">]</span>
+    <span class="n">motions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Motion</span><span class="p">]</span>
+    <span class="n">summary</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="n">meeting_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="n">MODEL</span><span class="p">,</span>
+    <span class="n">output_type</span><span class="o">=</span><span class="n">MeetingDetails</span><span class="p">,</span>
+    <span class="n">instructions</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Extract meeting details from the provided minutes.</span>
+<span class="s2">    """</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=94f3e459"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Step-one:-Extract-details-of-the-zoning-appeals-meeting">Step one: Extract details of the zoning appeals meeting<a class="anchor-link" href="#Step-one:-Extract-details-of-the-zoning-appeals-meeting">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e1f4ce41">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pymupdf</span>
+
+<span class="n">doc</span> <span class="o">=</span> <span class="n">pymupdf</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"20250715 BZA min.pdf"</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span> <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">)</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">meeting_agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">details</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=7f344dab"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Step-two-(and-three):-Step-through-the-properties-mentioned,-looking-each-one-of-them-up.-Also-look-up-the-people!">Step two (and three): Step through the properties mentioned, looking each one of them up. Also look up the people!<a class="anchor-link" href="#Step-two-(and-three):-Step-through-the-properties-mentioned,-looking-each-one-of-them-up.-Also-look-up-the-people!">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2e02a828">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">decimal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Decimal</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="n">ASSESSMENT_URL</span> <span class="o">=</span> <span class="s1">'https://apps.spotsylvaniacountyva.gov/assessment/assessment/results.cfm'</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">search_assessments_by_parcel_id</span><span class="p">(</span><span class="n">parcel_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Search for assessments related to a given parcel ID.</span>
+<span class="sd">    If initial search fails, try appending a "-" on the end of the parcel ID and searching again.</span>
+<span class="sd">    """</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'streetnum'</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+        <span class="s1">'streetname'</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+        <span class="s1">'parcelid'</span><span class="p">:</span> <span class="n">parcel_id</span><span class="p">,</span>
+        <span class="s1">'submitsearch'</span><span class="p">:</span> <span class="s1">'Go'</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">ASSESSMENT_URL</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">cleaned</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"Info.cfm?"</span><span class="p">,</span> <span class="s2">"https://apps.spotsylvaniacountyva.gov/assessment/assessment/Info.cfm?"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cleaned</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">search_assessments_by_address</span><span class="p">(</span><span class="n">street_num</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">street_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Search for assessments related to a given street address.</span>
+<span class="sd">    Street name should be only the name and must NOT include RD, DR, ST, AVE</span>
+<span class="sd">    """</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'streetnum'</span><span class="p">:</span> <span class="n">street_num</span><span class="p">,</span>
+        <span class="s1">'streetname'</span><span class="p">:</span> <span class="n">street_name</span><span class="p">,</span>
+        <span class="s1">'parcelid'</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+        <span class="s1">'submitsearch'</span><span class="p">:</span> <span class="s1">'Go'</span>
+    <span class="p">}</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">ASSESSMENT_URL</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+    
+    <span class="n">cleaned</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"Info.cfm?"</span><span class="p">,</span> <span class="s2">"https://apps.spotsylvaniacountyva.gov/assessment/assessment/Info.cfm?"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cleaned</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">RealEstateRecord</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">parcel_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">physical_address</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">legal_description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">deeded_square_feet</span><span class="p">:</span> <span class="n">Decimal</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">assessment_year</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">land_value</span><span class="p">:</span> <span class="n">Decimal</span>
+    <span class="n">building_value</span><span class="p">:</span> <span class="n">Decimal</span>
+    <span class="n">improvement_value</span><span class="p">:</span> <span class="n">Decimal</span>
+    <span class="n">total_value</span><span class="p">:</span> <span class="n">Decimal</span>
+
+    <span class="n">building_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">year_built</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Use None if the source says 0 or unknown"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">building_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">total_area_sqft</span><span class="p">:</span> <span class="n">Decimal</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">bedrooms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">full_bathrooms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">half_bathrooms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">has_composition_shingle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">has_frame_siding_vinyl</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">has_heat_pump</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">wood_deck_sqft</span><span class="p">:</span> <span class="n">Decimal</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">owner_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">mailing_street</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">mailing_city</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">mailing_state</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">mailing_zip</span><span class="p">:</span> <span class="nb">str</span>
+
+    <span class="n">sales_as_of_date</span><span class="p">:</span> <span class="n">date</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">date_of_transfer</span><span class="p">:</span> <span class="n">date</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">transfer_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">instrument_number</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">sale_price</span><span class="p">:</span> <span class="n">Decimal</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">google_maps_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="n">assessment_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="n">MODEL</span><span class="p">,</span>
+    <span class="n">output_type</span><span class="o">=</span><span class="n">RealEstateRecord</span><span class="p">,</span>
+    <span class="n">capabilities</span><span class="o">=</span><span class="p">[</span><span class="n">WebFetch</span><span class="p">(</span><span class="n">local</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">native</span><span class="o">=</span><span class="kc">False</span><span class="p">)],</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">search_assessments_by_parcel_id</span><span class="p">,</span>
+        <span class="n">search_assessments_by_address</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="n">instructions</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Extract one property assessment record from county assessment pages.</span>
+<span class="s2">        REMEMBER: Assessment records are located at https://apps.spotsylvaniacountyva.gov/assessment/assessment/Info.cfm?OID=XXXXXX</span>
+<span class="s2">    """</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=707c1143">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ResearchResult</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">research_topic</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">results_summary</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">source_ledger</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+<span class="n">research_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="n">MODEL</span><span class="p">,</span>
+    <span class="n">output_type</span><span class="o">=</span><span class="n">ResearchResult</span><span class="p">,</span>
+    <span class="n">capabilities</span><span class="o">=</span><span class="p">[</span><span class="n">WebSearch</span><span class="p">(</span><span class="n">native</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">local</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">WebFetch</span><span class="p">(</span><span class="n">native</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">local</span><span class="o">=</span><span class="kc">True</span><span class="p">)],</span>
+    <span class="n">instructions</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Act as an investigative journalist researching a zoning case.</span>
+<span class="s2">        Research the applicant(s) and provide a brief summary of who they are,</span>
+<span class="s2">        what they do, and any relevant background information that might be </span>
+<span class="s2">        helpful for understanding their perspective in a zoning case.</span>
+<span class="s2">    """</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=85f65970">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">details</span><span class="p">[</span><span class="s1">'cases'</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Researching case:"</span><span class="p">,</span> <span class="n">case</span><span class="p">[</span><span class="s1">'case_id'</span><span class="p">])</span>
+
+    <span class="c1"># Researching the assessment</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">       Acquire the property assessment record for the following parcel:</span>
+<span class="s2">        - Parcel ID: </span><span class="si">{parcel_id}</span>
+<span class="s2">        - Address: </span><span class="si">{property_address}</span>
+<span class="s2">    """</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">case</span><span class="p">)</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">assessment_agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+    <span class="k">case</span><span class="p">[</span><span class="s1">'assessment_record'</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span>
+
+    <span class="c1"># Researching the people</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">case</span><span class="p">[</span><span class="s1">'applicants'</span><span class="p">])</span>
+
+    <span class="n">prompt</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">        Applicant names: </span><span class="si">{names}</span>
+<span class="s2">        Property address: </span><span class="si">{property_address}</span>
+<span class="s2">        Zoning issue: </span><span class="si">{request}</span>
+<span class="s2">        Public conflict summary: </span><span class="si">{public_conflict}</span>
+<span class="s2">        """</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">case</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">'assessment_record'</span> <span class="ow">in</span> <span class="n">case</span> <span class="ow">and</span> <span class="n">case</span><span class="p">[</span><span class="s1">'assessment_record'</span><span class="p">]:</span>
+        <span class="n">prompt</span> <span class="o">+=</span> <span class="s2">""" </span>
+<span class="s2">        Owner name from assessment record: </span><span class="si">{owner_name}</span>
+<span class="s2">        Owner full address from assessment record:</span>
+<span class="s2">            </span><span class="si">{mailing_street}</span>
+<span class="s2">            </span><span class="si">{mailing_city}</span><span class="s2"> </span><span class="si">{mailing_state}</span>
+<span class="s2">            </span><span class="si">{mailing_zip}</span>
+<span class="s2">        """</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">case</span><span class="p">[</span><span class="s1">'assessment_record'</span><span class="p">])</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">research_agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+    <span class="k">case</span><span class="p">[</span><span class="s1">'applicant_research'</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=d96330f5">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">details</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=f0d901ed"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Alternative-approaches">Alternative approaches<a class="anchor-link" href="#Alternative-approaches">¶</a></h2><p>Todo lists, worker-supervisor, planner-executor...</p>
+<ul>
+<li>What other approaches to research might be useful?</li>
+<li>Should we research companies separately from people?</li>
+<li>What if we want to look up each owner separately/applicant separately?</li>
+<li>What happens if we encounter new properties when researching a person online?<ul>
+<li>What if we encounter <em>many</em> addresses when researching people?</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+<nav class="nb-nav">
+    
+    <a href="../02-pydantic-ai-agents-in-action/02-pydantic-ai-agents-in-action-ANSWERS.html" class="nb-nav-prev">&larr; Pydantic AI agents in action</a>
+    
+    
+    <a href="../04-pydantic-ai-and-oil-spills-more-orchestration/04-pydantic-ai-north-dakota-spills-ANSWERS.html" class="nb-nav-next">Pydantic AI orchestration &rarr;</a>
+    
+</nav>
+
+
+
+
+</div>
+
+<script>
+function setTheme(theme, btn) {
+    var darkNames = {'dark':1, 'noir':1};
+    var cls = darkNames[theme] ? 'noir' : 'broadsheet';
+    document.documentElement.className = 'theme-' + cls;
+    document.querySelectorAll('.theme-switcher button').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    localStorage.setItem('theme', darkNames[theme] ? 'dark' : 'light');
+}
+
+// Sync button active state (theme already set by head script)
+(function() {
+    var saved = localStorage.getItem('theme');
+    var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    var label = theme === 'dark' ? 'Dark' : 'Light';
+    document.querySelectorAll('.theme-switcher button').forEach(function(b) {
+        b.classList.toggle('active', b.textContent.trim() === label);
+    });
+})();
+
+window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+    if (!localStorage.getItem('theme')) {
+        var cls = e.matches ? 'broadsheet' : 'noir';
+        document.documentElement.className = 'theme-' + cls;
+        var label = e.matches ? 'Light' : 'Dark';
+        document.querySelectorAll('.theme-switcher button').forEach(function(b) {
+            b.classList.toggle('active', b.textContent.trim() === label);
+        });
+    }
+});
+
+function loadSlides(slideId, slideUrl) {
+    var root = document.getElementById(slideId);
+    if (!root) return;
+    var preview = root.querySelector('.slide-preview');
+    var container = root.querySelector('.slide-container');
+    var frame = container && container.querySelector('iframe, embed');
+    if (frame && !frame.getAttribute('src')) {
+        frame.setAttribute('src', slideUrl);
+    }
+    if (preview) preview.style.display = 'none';
+    if (container) container.style.display = 'block';
+}
+
+document.addEventListener('click', function(event) {
+    document.querySelectorAll('details.try-menu[open], details.nb-try-menu[open]').forEach(function(menu) {
+        if (!menu.contains(event.target)) {
+            menu.removeAttribute('open');
+        }
+    });
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        document.querySelectorAll('details.try-menu[open], details.nb-try-menu[open]').forEach(function(menu) {
+            menu.removeAttribute('open');
+        });
+    }
+});
+</script>
+
+<script>
+// Detect blocked newsletter iframes and show a fallback link
+(function() {
+    function replaceWithLink(iframe, src) {
+        var link = document.createElement('a');
+        link.href = src;
+        link.className = 'newsletter-fallback-btn';
+        link.innerHTML = 'Subscribe to the newsletter &rarr;';
+        iframe.replaceWith(link);
+        // Also hide the beehiiv script tag if present
+        var scripts = document.querySelectorAll('.newsletter-signup script');
+        scripts.forEach(function(s) { s.remove(); });
+    }
+    document.querySelectorAll('.newsletter-signup iframe').forEach(function(iframe) {
+        var src = iframe.src;
+        if (!src) return;
+        // Check iframe dimensions after it settles — blocked iframes
+        // typically render as 0-height or very small
+        var timer = setTimeout(function() {
+            var h = iframe.offsetHeight || iframe.getBoundingClientRect().height;
+            if (h < 20) {
+                replaceWithLink(iframe, src);
+            }
+        }, 3000);
+    });
+})();
+</script>
+</body>
+</html>

@@ -46,8 +46,9 @@ sections:
           - python-dotenv
           - braintrust
           - perplexityai
+          - fastmcp
 
-  - title: "03. Pydantic AI orchestration"
+  - title: "03. Pydantic AI and property ownership (orchestration)"
     folder: "."
     markdown: false
     notebooks:
@@ -64,3 +65,19 @@ sections:
         data_files:
           - "20250715 BZA min.pdf"
           - "TM_5.pdf"
+  - title: "04. Pydantic AI and oil spills (more orchestration)"
+    folder: "."
+    markdown: false
+    notebooks:
+      "04-Pydantic AI North Dakota spills.ipynb":
+        title: "Pydantic AI orchestration"
+        description: "When do we really need AI?"
+        order: 1
+        install:
+          - ipywidgets
+          - pydantic-ai-slim[openrouter,web-fetch]
+          - python-dotenv
+          - pymupdf
+          - requests
+        data_files:
+          - "data/incidents/*.pdf"

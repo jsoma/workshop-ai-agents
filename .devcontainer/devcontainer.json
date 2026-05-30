@@ -1,16 +1,21 @@
 {
-  "name": "Pydantic AI Workshop",
-  "image": "mcr.microsoft.com/devcontainers/python:3.11",
-  "onCreateCommand": "curl -LsSf https://astral.sh/uv/install.sh | sh && ~/.local/bin/uv sync --frozen && ~/.local/bin/uv run python -m ipykernel install --user --name pydantic-ai-workshop --display-name 'Pydantic AI Workshop'",
+  "name": "Agentic AI with Pydantic AI",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11-bookworm",
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "waitFor": "postCreateCommand",
   "remoteEnv": {
-    "PATH": "/home/vscode/.local/bin:${containerEnv:PATH}"
+    "PATH": "${containerWorkspaceFolder}/.venv/bin:/home/vscode/.local/bin:${containerEnv:PATH}"
   },
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-python.python",
         "ms-toolsai.jupyter"
-      ]
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python",
+        "jupyter.notebookFileRoot": "${workspaceFolder}"
+      }
     }
   }
 }
